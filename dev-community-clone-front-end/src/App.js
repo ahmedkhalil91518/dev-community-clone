@@ -1,10 +1,11 @@
 import "./App.css";
-import SwipeableTemporaryDrawer from "./components/SwipeableTemporaryDrawer";
+import ButtonAppBar from "./components/ButtonAppBar";
+
 function App() {
   return (
-    <div>
-      <SwipeableTemporaryDrawer />
-    </div>
+    <>
+      <ButtonAppBar />
+    </>
   );
 }
 
