@@ -1,4 +1,3 @@
-
 .burger-button {
   color: black;
 }
@@ -13,7 +12,15 @@ body {
   width: 100vw;
   height: calc(100vh - 56px);
 }
-.css-hyum1k-MuiToolbar-root{
+.css-hyum1k-MuiToolbar-root {
   background-color: white;
   color: black;
+}
+.cancel-icon {
+  float: right;
+  margin: 5% 5% 5% 0;
+}
+.h3-header {
+  float: left;
+  margin: 5% 5% 0 5%;
 }
