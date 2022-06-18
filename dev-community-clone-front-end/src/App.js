@@ -1,7 +1,11 @@
 import "./App.css";
-
+import SwipeableTemporaryDrawer from "./components/SwipeableTemporaryDrawer";
 function App() {
-  return <div></div>;
+  return (
+    <div>
+      <SwipeableTemporaryDrawer />
+    </div>
+  );
 }
 
 export default App;
