@@ -24,3 +24,16 @@ body {
   float: left;
   margin: 5% 5% 0 5%;
 }
+.create-account-button {
+  margin: 0 2% !important;
+  border-width: 3px !important;
+  padding: 2% !important;
+  font-size: x-small !important;
+}
+.search-button {
+  color: black !important;
+  padding: 2% !important;
+}
+.css-i4bv87-MuiSvgIcon-root {
+  padding: 0 !important;
+}
