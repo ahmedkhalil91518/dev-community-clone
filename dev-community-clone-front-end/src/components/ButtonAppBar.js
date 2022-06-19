@@ -7,12 +7,13 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
 import SearchIcon from '@mui/icons-material/Search';
+import CreateAccountButton from "./CreateAccountButton";
 
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="appbar">
           <IconButton
             size="large"
             edge="start"
@@ -26,7 +27,7 @@ export default function ButtonAppBar() {
             News
           </Typography>
           <Button className="search-button"><SearchIcon/></Button>
-          <Button color="primary" variant="outlined" className="create-account-button">create account</Button>
+          <CreateAccountButton />
         </Toolbar>
       </AppBar>
     </Box>

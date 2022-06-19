@@ -25,10 +25,11 @@ body {
   margin: 5% 5% 0 5%;
 }
 .create-account-button {
-  margin: 0 2% !important;
+  margin: 0 auto !important;
   border-width: 3px !important;
   padding: 2% !important;
   font-size: x-small !important;
+  font-weight: 800 !important;
 }
 .search-button {
   color: black !important;
@@ -36,4 +37,44 @@ body {
 }
 .css-i4bv87-MuiSvgIcon-root {
   padding: 0 !important;
+}
+.login-card {
+  margin: 20% 3% !important;
+}
+.appbar {
+  padding: 0 5% !important;
+}
+.burger-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-button {
+  margin: 0 auto !important;
+  border-width: 3px !important;
+  padding: 2% !important;
+  font-size: x-small !important;
+  color: black !important;
+  font-weight: 800 !important;
+}
+.list-container {
+  margin: 20% 3% !important;
+  display: flex;
+  flex-direction: column;
+}
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.list-item-part{
+  margin: 1%;
+}
+.social {
+  margin: 0 5% ;
+}
+.list-social {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
 }
