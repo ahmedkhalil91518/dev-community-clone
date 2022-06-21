@@ -27,13 +27,13 @@ body {
 .create-account-button {
   margin: 0 auto !important;
   border-width: 3px !important;
-  padding: 2% !important;
+  padding: 10px !important;
   font-size: x-small !important;
   font-weight: 800 !important;
 }
 .search-button {
   color: black !important;
-  padding: 2% !important;
+  padding: 10px !important;
 }
 .css-i4bv87-MuiSvgIcon-root {
   padding: 0 !important;
