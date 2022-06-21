@@ -1,9 +1,11 @@
-import React from 'react'
-import MainCSS from "./Main.module.css"
+import React from "react";
+import MainCSS from "./Main.module.css";
+
 function Main() {
   return (
-    <main className={MainCSS.main}></main>
-  )
+    <main className={MainCSS.main}>
+    </main>
+  );
 }
 
-export default Main
+export default Main;

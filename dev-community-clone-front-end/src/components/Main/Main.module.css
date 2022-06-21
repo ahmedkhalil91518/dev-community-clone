@@ -2,4 +2,7 @@
     background-color: rgb(211, 208, 208);
     width: 100vw;
     height: calc(100vh - 56px);
+    position: fixed;
+    z-index: -1;
   }
+  
