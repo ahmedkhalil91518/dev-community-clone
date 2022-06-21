@@ -1,62 +1,6 @@
-.burger-button {
-  color: black;
-}
 body {
   margin: 0;
 }
 .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
   width: 70%;
-}
-.cancel-icon {
-  float: right;
-  margin: 5% 5% 5% 0;
-}
-.h3-header {
-  float: left;
-  margin: 5% 5% 0 5%;
-}
-.create-account-button {
-  margin: 0 auto !important;
-  border-width: 3px !important;
-  padding: 10px !important;
-  font-size: x-small !important;
-  font-weight: 800 !important;
-}
-.login-card {
-  margin: 20% 3% !important;
-}
-
-.burger-button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.login-button {
-  margin: 0 auto !important;
-  border-width: 3px !important;
-  padding: 2% !important;
-  font-size: x-small !important;
-  color: black !important;
-  font-weight: 800 !important;
-}
-.list-container {
-  margin: 20% 3% !important;
-  display: flex;
-  flex-direction: column;
-}
-.list-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.list-item-part{
-  margin: 1%;
-}
-.social {
-  margin: 0 5% ;
-}
-.list-social {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
 }

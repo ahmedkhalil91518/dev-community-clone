@@ -3,12 +3,13 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CreateAccountButton from "./CreateAccountButton";
-import LoginButton from "./LoginButton";
+import CreateAccountButton from "../CreateAccountButton/CreateAccountButton";
+import LoginButton from "../LoginButton/LoginButton";
+import BasicCardCSS from "./BasicCard.module.css"
 
 export default function BasicCard() {
   return (
-    <Card sx={{ minWidth: 235 }} className="login-card">
+    <Card sx={{ minWidth: 235 }} className={BasicCardCSS.loginCard}>
       <CardContent>
         <Typography variant="h6" component="div">
           DEV Community is a community of 863,727 amazing developers

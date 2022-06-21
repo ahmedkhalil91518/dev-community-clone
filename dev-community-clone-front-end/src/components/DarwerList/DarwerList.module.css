@@ -1,0 +1,29 @@
+.listItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.listItemPart {
+  margin: 1%;
+}
+.listContainer {
+  margin: 20% 3% !important;
+  display: flex;
+  flex-direction: column;
+}
+.cancelIcon {
+  float: right;
+  margin: 5% 5% 5% 0;
+}
+.social {
+  margin: 0 5%;
+}
+.listSocial {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+}
+.h3Header {
+  float: left;
+  margin: 5% 5% 0 5%;
+}
