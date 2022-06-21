@@ -5,15 +5,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import SwipeableTemporaryDrawer from "./SwipeableTemporaryDrawer";
+import SwipeableTemporaryDrawer from "../SwipeableTemporaryDrawer";
 import SearchIcon from '@mui/icons-material/Search';
-import CreateAccountButton from "./CreateAccountButton";
+import CreateAccountButton from "../CreateAccountButton";
+import ButtonAppBarCSS from "./ButtonAppBar.module.css"
 
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar className="appbar">
+        <Toolbar className={ButtonAppBarCSS.appbar}>
           <IconButton
             size="large"
             edge="start"
@@ -26,7 +27,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          <Button className="search-button"><SearchIcon/></Button>
+          <Button className={ButtonAppBarCSS.searchButton}><SearchIcon/></Button>
           <CreateAccountButton />
         </Toolbar>
       </AppBar>

@@ -26,19 +26,13 @@ body {
   font-size: x-small !important;
   font-weight: 800 !important;
 }
-.search-button {
-  color: black !important;
-  padding: 10px !important;
-}
 .css-i4bv87-MuiSvgIcon-root {
   padding: 0 !important;
 }
 .login-card {
   margin: 20% 3% !important;
 }
-.appbar {
-  padding: 0 5% !important;
-}
+
 .burger-button-container {
   display: flex;
   align-items: center;
