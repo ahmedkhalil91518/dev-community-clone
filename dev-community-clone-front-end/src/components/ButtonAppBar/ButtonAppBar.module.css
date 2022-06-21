@@ -1,7 +1,13 @@
 .appbar {
-  padding: 0 5% !important;
+  padding: 5px !important;
+  background-color: white;
+  color: black;
 }
 .searchButton {
   color: black !important;
   padding: 10px !important;
+}
+.appTitle {
+  font-size: x-large;
+  flex-grow: 1;
 }
