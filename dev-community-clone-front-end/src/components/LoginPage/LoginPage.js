@@ -6,23 +6,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import createButton from "../ReactSocialLoginButtons/create-button";
-import createSvgIcon from "../ReactSocialLoginButtons/createSvgIcon";
-import EmailIcon from "@mui/icons-material/Email";
 import Divider from "@mui/material/Divider";
 
-function Icon({ width, height, color }) {
-  return <EmailIcon />;
-}
-
-const config = {
-  activeStyle: { background: "#EFF0EE" },
-  icon: createSvgIcon(Icon),
-  style: { background: "white", color: "black" },
-  text: "Log in with Email",
-};
-
-const EmailLoginButton = createButton(config);
 function LoginPage() {
   return (
     <div className={LoginPageCSS.page}>
@@ -37,9 +22,6 @@ function LoginPage() {
         </CardActions>
         <CardActions>
           <GithubButton />
-        </CardActions>
-        <CardActions>
-          <EmailLoginButton />
         </CardActions>
         <CardContent className={LoginPageCSS.dividerContainer}>
           <Divider className={LoginPageCSS.divider}/>

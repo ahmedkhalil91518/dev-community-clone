@@ -1,26 +1,26 @@
 .page {
-    background-color: white;
+  background-color: white;
 }
 .dividerText {
-    max-width: 250px;
-    text-align: center;
-    position: absolute;
-    margin: auto;
-    background-color: white;
-    padding: 5px;
+  max-width: 250px;
+  text-align: center;
+  position: absolute;
+  margin: auto;
+  background-color: white;
+  padding: 5px;
 }
 .dividerContainer {
-    position: relative;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .divider {
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    margin: auto;
-    height: 1px;
-    background-color: rgb(211, 211, 211);
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  margin: auto;
+  height: 1px;
+  background-color: rgb(211, 211, 211);
 }
