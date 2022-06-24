@@ -24,9 +24,51 @@ function LoginPage() {
           <GithubButton />
         </CardActions>
         <CardContent className={LoginPageCSS.dividerContainer}>
-          <Divider className={LoginPageCSS.divider}/>
-          <div className={LoginPageCSS.dividerText}>Have a password? Continue with your email address</div>
+          <Divider className={LoginPageCSS.divider} />
+          <div className={LoginPageCSS.dividerText}>
+            Have a password? Continue with your email address
+          </div>
         </CardContent>
+        <div class="mb-3">
+          <label
+            for="exampleFormControlInput1"
+            className={LoginPageCSS.label + " form-label"}
+          >
+            Email address
+          </label>
+          <input
+            type="email"
+            className={LoginPageCSS.input + " form-control"}
+            id="exampleFormControlInput1"
+          />
+          <label
+            for="exampleFormControlInput2"
+            className={LoginPageCSS.label + " form-label"}
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            className={LoginPageCSS.input + " form-control"}
+            id="exampleFormControlInput2"
+          />
+          <div className={LoginPageCSS.checkContainer}>
+            <input
+              className={LoginPageCSS.check + " form-check-input"}
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label
+              className={LoginPageCSS.labelCheck + " form-check-label"}
+              for="flexCheckDefault"
+            >
+              Remember me
+            </label>
+          </div>
+          <button className={LoginPageCSS.loginButton + " btn btn-primary"} type="submit">Button</button>
+          <a className={LoginPageCSS.forgotPassword}>I forgot my password</a>
+        </div>
       </Card>
     </div>
   );
