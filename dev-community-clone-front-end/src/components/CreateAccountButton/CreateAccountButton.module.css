@@ -4,4 +4,8 @@
     padding: 10px !important;
     font-size: x-small !important;
     font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  .link {
+    text-decoration: none;
   }
