@@ -29,7 +29,7 @@ function LoginPage() {
             Have a password? Continue with your email address
           </div>
         </CardContent>
-        <div class="mb-3">
+        <div>
           <label
             for="exampleFormControlInput1"
             className={LoginPageCSS.label + " form-label"}
