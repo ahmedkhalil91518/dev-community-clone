@@ -6,7 +6,7 @@ const createSvgIcon = Component => ({ size, color }) => {
   // URL has been given
   if (typeof Component === 'string') {
     function Image (props) {
-      return <img src={Component} {...props} />;
+      return <img src={Component} {...props} alt=""/>;
     }
     return createSvgIcon(Image);
   }
