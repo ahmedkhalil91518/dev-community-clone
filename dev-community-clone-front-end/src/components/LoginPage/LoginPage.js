@@ -7,8 +7,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function LoginPage() {
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string()
+      .min(8, "the password must be 8 characters or longer")
+      .required("Required"),
+  });
+  const initialValues = {
+    email: "",
+    password: "",
+    rememberMe: false,
+  };
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
     <div className={LoginPageCSS.container}>
       <Card className={LoginPageCSS.page}>
@@ -29,46 +46,65 @@ function LoginPage() {
             Have a password? Continue with your email address
           </div>
         </CardContent>
-        <div>
-          <label
-            for="exampleFormControlInput1"
-            className={LoginPageCSS.label + " form-label"}
-          >
-            Email address
-          </label>
-          <input
-            type="email"
-            className={LoginPageCSS.input + " form-control"}
-            id="exampleFormControlInput1"
-          />
-          <label
-            for="exampleFormControlInput2"
-            className={LoginPageCSS.label + " form-label"}
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            className={LoginPageCSS.input + " form-control"}
-            id="exampleFormControlInput2"
-          />
-          <div className={LoginPageCSS.checkContainer}>
-            <input
-              className={LoginPageCSS.check + " form-check-input"}
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form>
             <label
-              className={LoginPageCSS.labelCheck + " form-check-label"}
-              for="flexCheckDefault"
+              htmlFor="exampleFormControlInput1"
+              className={LoginPageCSS.label + " form-label"}
             >
-              Remember me
+              Email address
             </label>
-          </div>
-          <button className={LoginPageCSS.loginButton + " btn btn-primary"} type="submit">Button</button>
-          <a className={LoginPageCSS.forgotPassword}>I forgot my password</a>
-        </div>
+            <Field
+              type="email"
+              className={LoginPageCSS.input + " form-control"}
+              id="exampleFormControlInput1"
+              name="email"
+            />
+            <div className={LoginPageCSS.ErrorMessage}>
+              <ErrorMessage name="email" />
+            </div>
+            <label
+              htmlFor="exampleFormControlInput2"
+              className={LoginPageCSS.label + " form-label"}
+            >
+              Password
+            </label>
+            <Field
+              type="password"
+              className={LoginPageCSS.input + " form-control"}
+              id="exampleFormControlInput2"
+              name="password"
+            />
+            <div className={LoginPageCSS.ErrorMessage}>
+              <ErrorMessage name="email" />
+            </div>
+            <div className={LoginPageCSS.checkContainer}>
+              <Field
+                className={LoginPageCSS.check + " form-check-input"}
+                type="checkbox"
+                id="flexCheckDefault"
+                name="rememberMe"
+              />
+              <label
+                className={LoginPageCSS.labelCheck + " form-check-label"}
+                htmlFor="flexCheckDefault"
+              >
+                Remember me
+              </label>
+            </div>
+            <button
+              className={LoginPageCSS.loginButton + " btn btn-primary"}
+              type="submit"
+            >
+              Button
+            </button>
+            <a className={LoginPageCSS.forgotPassword}>I forgot my password</a>
+          </Form>
+        </Formik>
       </Card>
     </div>
   );
