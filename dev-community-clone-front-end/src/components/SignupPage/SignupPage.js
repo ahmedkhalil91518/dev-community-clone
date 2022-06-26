@@ -10,11 +10,15 @@ import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function SignupPage() {
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().min(8, "the password must be 8 characters or longer").required("Required"),
+    password: Yup.string()
+      .min(8, "the password must be 8 characters or longer")
+      .required("Required"),
   });
   const initialValues = {
     email: "",
@@ -22,6 +26,17 @@ function SignupPage() {
   };
   const onSubmit = (values) => {
     console.log(values);
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   };
 
   return (
@@ -61,20 +76,26 @@ function SignupPage() {
               name="email"
               className={SignupPageCSS.input + " form-control"}
               id="exampleFormControlInput1"
-            /><div className={SignupPageCSS.ErrorMessage}><ErrorMessage name="email" /></div>
+            />
+            <div className={SignupPageCSS.ErrorMessage}>
+              <ErrorMessage name="email" />
+            </div>
             <label
               htmlFor="exampleFormControlInput2"
               className={SignupPageCSS.label + " form-label"}
             >
               Password
             </label>
-            
+
             <Field
               type="password"
               name="password"
               className={SignupPageCSS.input + " form-control"}
               id="exampleFormControlInput2"
-            /><div className={SignupPageCSS.ErrorMessage}><ErrorMessage name="password" /></div>
+            />
+            <div className={SignupPageCSS.ErrorMessage}>
+              <ErrorMessage name="password" />
+            </div>
             <button
               className={SignupPageCSS.loginButton + " btn btn-primary"}
               type="submit"

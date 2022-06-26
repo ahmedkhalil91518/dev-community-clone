@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginPageCSS from "./LoginPage.module.css";
 import GithubButton from "../ReactSocialLoginButtons/GithubLoginButton";
 import GoogleButton from "../ReactSocialLoginButtons/GoogleLoginButton";
@@ -9,8 +9,11 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function LoginPage() {
+  const [error, setError] = useState("")
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -24,6 +27,24 @@ function LoginPage() {
   };
   const onSubmit = (values) => {
     console.log(values);
+    signInWithEmailAndPassword(auth, values.email, values.password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    if(errorMessage.includes("user-not-found")){
+      setError("there is no user with these credentials in our database")
+      setTimeout(() => {
+        setError("")
+      }, 5000)
+    }
+  });
   };
 
   return (
@@ -96,11 +117,12 @@ function LoginPage() {
                 Remember me
               </label>
             </div>
+            {error && <div className={LoginPageCSS.ErrorMessage}>{error}</div>}
             <button
               className={LoginPageCSS.loginButton + " btn btn-primary"}
               type="submit"
             >
-              Button
+              Submit
             </button>
             <a className={LoginPageCSS.forgotPassword}>I forgot my password</a>
           </Form>
