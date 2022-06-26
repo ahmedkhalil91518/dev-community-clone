@@ -2,7 +2,8 @@
     margin: 0 auto !important;
     border-width: 3px !important;
     padding: 2% !important;
-    font-size: x-small !important;
+    font-size: medium !important;
     color: black !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
+    text-decoration: none;
   }

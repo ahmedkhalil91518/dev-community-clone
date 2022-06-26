@@ -1,0 +1,9 @@
+.loginCard {
+    margin: 20% 3% !important;
+    min-width: 235px;
+  }
+  .createAccountContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

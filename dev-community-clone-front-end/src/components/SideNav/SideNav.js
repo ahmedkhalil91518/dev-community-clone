@@ -1,11 +1,11 @@
-import * as React from "react";
+import React, { useState } from "react";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import MenuIcon from "@mui/icons-material/Menu";
-import SwipeableTemporaryDrawerCSS from "./SwipeableTemporaryDrawer.module.css";
-import DarwerList from "../DarwerList/DarwerList";
+import SideNavCSS from "./SideNav.module.css";
+import SideNavList from "../SideNavList/SideNavList";
 
-export default function SwipeableTemporaryDrawer() {
-  const [state, setState] = React.useState(false);
+export default function SideNav() {
+  const [state, setState] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -21,21 +21,17 @@ export default function SwipeableTemporaryDrawer() {
 
   return (
     <div>
-      <div
-        className={
-          SwipeableTemporaryDrawerCSS.burgerButtonContainer
-        }
-      >
+      <div className={SideNavCSS.burgerButtonContainer}>
         <MenuIcon
           onClick={toggleDrawer(true)}
-          className={SwipeableTemporaryDrawerCSS.burgerButton}
+          className={SideNavCSS.burgerButton}
         />
         <SwipeableDrawer
           open={state}
           onClose={toggleDrawer(false)}
           onOpen={toggleDrawer(true)}
         >
-          <DarwerList toggleDrawer={toggleDrawer} />
+          <SideNavList toggleDrawer={toggleDrawer} />
         </SwipeableDrawer>
       </div>
     </div>

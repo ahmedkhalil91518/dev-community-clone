@@ -4,7 +4,7 @@
   align-items: center;
 }
 .listItemPart {
-  margin: 1%;
+  margin: 1% 15px 1% 1%;
 }
 .listContainer {
   margin: 20% 3% !important;

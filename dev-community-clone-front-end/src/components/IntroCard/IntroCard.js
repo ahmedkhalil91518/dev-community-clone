@@ -2,24 +2,23 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import CreateAccountButton from "../CreateAccountButton/CreateAccountButton";
 import LoginButton from "../LoginButton/LoginButton";
-import BasicCardCSS from "./BasicCard.module.css"
+import IntroCardCSS from "./IntroCard.module.css"
 
-export default function BasicCard() {
+export default function IntroCard() {
   return (
-    <Card sx={{ minWidth: 235 }} className={BasicCardCSS.loginCard}>
+    <Card className={IntroCardCSS.loginCard}>
       <CardContent>
-        <Typography variant="h6" component="div">
+        <h3>
           DEV Community is a community of 863,727 amazing developers
-        </Typography>
-        <Typography variant="body2">
+        </h3>
+        <div>
           We're a place where coders share, stay up-to-date and grow their
           careers.
-        </Typography>
+        </div>
       </CardContent>
-      <CardActions>
+      <CardActions className={IntroCardCSS.createAccountContainer}>
         <CreateAccountButton />
       </CardActions>
       <CardActions>
