@@ -10,8 +10,8 @@ import Divider from "@mui/material/Divider";
 
 function LoginPage() {
   return (
-    <div className={LoginPageCSS.page}>
-      <Card>
+    <div className={LoginPageCSS.container}>
+      <Card className={LoginPageCSS.page}>
         <CardContent>
           <Typography variant="h6" component="div">
             DEV Community is a community of 863,727 amazing developers

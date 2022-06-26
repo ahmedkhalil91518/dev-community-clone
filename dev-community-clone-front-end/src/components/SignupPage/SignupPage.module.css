@@ -2,6 +2,8 @@
     background-color: white;
     max-width: 700px;
     margin: auto;
+    padding: 20px;
+    border-radius: 5px;
   }
   .dividerText {
     max-width: 250px;
@@ -47,4 +49,10 @@
     text-align: center;
     margin: auto;
     padding: 20px;
+  }
+  .container {
+    min-height: calc(100vh - 176px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
