@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SignupPageCSS from "./SignupPage.module.css";
 import GithubButton from "../ReactSocialLoginButtons/GithubSignup";
 import GoogleButton from "../ReactSocialLoginButtons/GoogleSignup";
@@ -10,10 +10,15 @@ import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 
 function SignupPage() {
+  const [error, setError] = useState("");
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -24,18 +29,28 @@ function SignupPage() {
     email: "",
     password: "",
   };
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     console.log(values);
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
+        console.log(user);
+        sendEmailVerification(auth.currentUser).then(() => {
+          // Email verification sent!
+          console.log(auth.currentUser);
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        console.log(errorMessage);
+        if (errorMessage.includes("email-already-in-use")) {
+          setError("this email is already used");
+          setTimeout(() => {
+            setError("");
+          }, 5000);
+        }
       });
   };
 
@@ -96,6 +111,7 @@ function SignupPage() {
             <div className={SignupPageCSS.ErrorMessage}>
               <ErrorMessage name="password" />
             </div>
+            {error && <div className={SignupPageCSS.ErrorMessage}>{error}</div>}
             <button
               className={SignupPageCSS.loginButton + " btn btn-primary"}
               type="submit"

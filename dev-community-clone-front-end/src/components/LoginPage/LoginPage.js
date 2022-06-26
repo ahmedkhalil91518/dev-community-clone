@@ -43,7 +43,7 @@ function LoginPage() {
       setTimeout(() => {
         setError("")
       }, 5000)
-    }
+    } 
   });
   };
 
