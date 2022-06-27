@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LoginPageCSS from "./LoginPage.module.css";
 import GithubButton from "../ReactSocialLoginButtons/GithubLoginButton";
 import GoogleButton from "../ReactSocialLoginButtons/GoogleLoginButton";
@@ -9,43 +9,108 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  getRedirectResult,
+} from "firebase/auth";
 import { auth } from "../../firebase";
+import SignupService from "../../services/SignupService";
 
 function LoginPage() {
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
+
+  const localToken = localStorage.getItem("token")
+
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .min(8, "the password must be 8 characters or longer")
       .required("Required"),
   });
+
   const initialValues = {
     email: "",
     password: "",
     rememberMe: false,
   };
+
   const onSubmit = (values) => {
     console.log(values);
     signInWithEmailAndPassword(auth, values.email, values.password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage);
-    if(errorMessage.includes("user-not-found")){
-      setError("there is no user with these credentials in our database")
-      setTimeout(() => {
-        setError("")
-      }, 5000)
-    } 
-  });
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        SignupService.signup({ uid: user.uid }).then((token) => {
+          localStorage.setItem("token", token);
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        if (errorMessage.includes("user-not-found")) {
+          setError("there is no user with these credentials in our database");
+          setTimeout(() => {
+            setError("");
+          }, 5000);
+        }
+      });
   };
+
+  const handleGoogleLogin = () => {
+    signInWithRedirect(auth, googleProvider).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+  };
+
+  const handleGithubLogin = () => {
+    signInWithRedirect(auth, githubProvider).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GithubAuthProvider.credentialFromError(error);
+      // ...
+    });
+  };
+
+  useEffect(() => {
+    getRedirectResult(auth).then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+      let credential = GoogleAuthProvider.credentialFromResult(result);
+      let user;
+      if (credential) {
+        const token = credential.accessToken;
+        // The signed-in user info.
+        user = result.user;
+      } else {
+        credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        user = result.user;
+      }
+
+      console.log(user);
+      SignupService.signup({ uid: user.uid }).then((token) => {
+        localStorage.setItem("token", token)
+      });
+    });
+  }, []);
 
   return (
     <div className={LoginPageCSS.container}>
@@ -56,10 +121,10 @@ function LoginPage() {
           </Typography>
         </CardContent>
         <CardActions>
-          <GoogleButton />
+          <GoogleButton onClick={handleGoogleLogin} />
         </CardActions>
         <CardActions>
-          <GithubButton />
+          <GithubButton onClick={handleGithubLogin} />
         </CardActions>
         <CardContent className={LoginPageCSS.dividerContainer}>
           <Divider className={LoginPageCSS.divider} />

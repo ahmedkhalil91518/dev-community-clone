@@ -27,6 +27,8 @@ function SignupPage() {
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
+  const localToken = localStorage.getItem("token");
+
   const handleGoogleSignup = () => {
     signInWithRedirect(auth, googleProvider).catch((error) => {
       // Handle Errors here.
@@ -71,11 +73,10 @@ function SignupPage() {
 
       console.log(user);
       SignupService.signup({ uid: user.uid }).then((token) => {
-        console.log(token);
+        localStorage.setItem("token", token);
       });
     });
   }, []);
-
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -95,9 +96,12 @@ function SignupPage() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        sendEmailVerification(auth.currentUser).then(() => {
-          // Email verification sent!
-          console.log(auth.currentUser);
+        SignupService.signup({ uid: user.uid }).then((token) => {
+          localStorage.setItem("token", token);
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            console.log(auth.currentUser);
+          });
         });
       })
       .catch((error) => {
@@ -112,7 +116,7 @@ function SignupPage() {
         }
       });
   };
-
+  
   return (
     <div className={SignupPageCSS.container}>
       <Card className={SignupPageCSS.page}>
