@@ -128,3 +128,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+dev-community-clone-firebase-adminsdk-fx6ls-f81d57f0ea.json
