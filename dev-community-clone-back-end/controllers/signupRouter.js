@@ -7,15 +7,18 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-signupRouter.post("", async (req, res) => {
+signupRouter.post("/", async (req, res, next) => {
   auth
     .getAuth()
     .createCustomToken(req.body.uid)
     .then((customToken) => {
       // Send token back to client
       console.log(customToken);
+      res.send(customToken)
     })
     .catch((error) => {
-      console.log("Error creating custom token:", error);
+      next(error);
     });
 });
+
+module.exports = signupRouter;
