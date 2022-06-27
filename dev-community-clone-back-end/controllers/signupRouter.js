@@ -7,14 +7,15 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-signupRouter.post("/", async (req, res, next) => {
+signupRouter.post("/", (req, res, next) => {
+  console.log(req.body);
   auth
     .getAuth()
     .createCustomToken(req.body.uid)
     .then((customToken) => {
       // Send token back to client
       console.log(customToken);
-      res.send(customToken)
+      res.send(customToken);
     })
     .catch((error) => {
       next(error);
