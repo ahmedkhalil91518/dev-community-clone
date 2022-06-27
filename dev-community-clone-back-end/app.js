@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const signupRouter = require("./controllers/signupRouter")
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
 
