@@ -9,6 +9,7 @@ import CreateAccountButton from "../CreateAccountButton/CreateAccountButton";
 import MainBarCSS from "./MainBar.module.css";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive'
+import LoginButton from "components/LoginButton/LoginButton";
 
 export default function MainBar() {
 
@@ -24,9 +25,10 @@ export default function MainBar() {
           <SideNav />
         </IconButton>}
         <Link to="/" className={MainBarCSS.appTitle}>Home</Link>
-        <Button className={MainBarCSS.searchButton}>
+        {isDesktopOrLaptop && <LoginButton/>}
+        {isTabletOrMobile && <Button className={MainBarCSS.searchButton}>
           <SearchIcon />
-        </Button>
+        </Button>}
         <CreateAccountButton />
       </Toolbar>
     </AppBar>
