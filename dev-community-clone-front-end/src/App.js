@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import Posts from "./components/Posts/Posts";
 import SignupPage from "./components/SignupPage/SignupPage";
+import React from "react";
 
 function App() {
   return (
