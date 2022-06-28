@@ -2,9 +2,14 @@ body {
   margin: 0;
 }
 .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
-  width: 70%;
+  width: 350px;
+  max-width: 70%;
 }
 .PostsNav .active,
 .TopNav .active {
   color: black;
+}
+.MuiBox-root,
+.MuiList-root {
+  height: 100vh;
 }

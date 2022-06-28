@@ -8,14 +8,21 @@ import SearchIcon from "@mui/icons-material/Search";
 import CreateAccountButton from "../CreateAccountButton/CreateAccountButton";
 import MainBarCSS from "./MainBar.module.css";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive'
 
 export default function MainBar() {
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   return (
     <AppBar position="sticky">
-      <Toolbar className={MainBarCSS.appBar}>
-        <IconButton>
+      <Toolbar className={isTabletOrMobile ? MainBarCSS.appBar: MainBarCSS.appBarLarge}>
+     {isTabletOrMobile &&   <IconButton>
           <SideNav />
-        </IconButton>
+        </IconButton>}
         <Link to="/" className={MainBarCSS.appTitle}>Home</Link>
         <Button className={MainBarCSS.searchButton}>
           <SearchIcon />

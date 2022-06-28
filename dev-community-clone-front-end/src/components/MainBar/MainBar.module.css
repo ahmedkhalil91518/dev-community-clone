@@ -15,3 +15,7 @@
 .appTitle:hover {
   color: black;
 }
+.appBarLarge {
+  padding: 5px 20% !important;
+  background-color: white;
+}

@@ -18,10 +18,10 @@
   margin: 5% 5% 5% 0;
 }
 .social {
-  margin: 0 5%;
+  margin: 0 7%;
 }
 .listSocial {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   width: 100%;
 }
