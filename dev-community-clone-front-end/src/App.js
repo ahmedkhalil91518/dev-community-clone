@@ -15,6 +15,7 @@ import Week from "components/Week/Week";
 import Month from "components/Month/Month";
 import Year from "components/Year/Year";
 import Infinity from "components/Infinity/Infinity";
+import About from "components/About/About";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </>

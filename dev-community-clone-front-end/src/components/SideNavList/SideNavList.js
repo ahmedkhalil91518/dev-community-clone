@@ -10,6 +10,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SideNavListCSS from "./SideNavList.module.css";
+import { Link } from "react-router-dom";
 
 function SideNavList({toggleDrawer}) {
   return (
@@ -26,14 +27,14 @@ function SideNavList({toggleDrawer}) {
         />
         <IntroCard />
         <div className={SideNavListCSS.listContainer}>
-          <div className={SideNavListCSS.listItem}>
+          <Link to="/" className={SideNavListCSS.listItem}>
             <HomeIcon className={SideNavListCSS.listItemPart} />{" "}
             <span className={SideNavListCSS.listItem}>Home</span>
-          </div>
-          <div className={SideNavListCSS.listItem}>
+          </Link>
+          <Link to="about" className={SideNavListCSS.listItem}>
             <InfoIcon className={SideNavListCSS.listItemPart} />{" "}
             <span className={SideNavListCSS.listItem}>About</span>
-          </div>
+          </Link>
           <div className={SideNavListCSS.listSocial}>
             <FacebookIcon className={SideNavListCSS.social} />
             <TwitterIcon className={SideNavListCSS.social} />
