@@ -19,10 +19,12 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import signupService from "../../services/signupService";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -55,26 +57,15 @@ function SignupPage() {
 
   useEffect(() => {
     getRedirectResult(auth).then((result) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      let credential = GoogleAuthProvider.credentialFromResult(result);
-      let user;
-      if (credential) {
-        const token = credential.accessToken;
-        // The signed-in user info.
-        user = result.user;
-      } else {
-        credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        user = result.user;
-      }
-
+      const user = result.user;
       console.log(user);
-      signupService.signup({ uid: user.uid }).then((token) => {});
+      navigate("/");
     });
   }, []);
   const validationSchema = Yup.object().shape({
-    name: Yup.string().min(3, "the minimum characters for the name is 3").required("Required"),
+    name: Yup.string()
+      .min(3, "the minimum characters for the name is 3")
+      .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .min(8, "the password must be 8 characters or longer")
@@ -93,12 +84,10 @@ function SignupPage() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        signupService.signup({ uid: user.uid }).then((token) => {
-          localStorage.setItem("token", token);
-          sendEmailVerification(auth.currentUser).then(() => {
-            // Email verification sent!
-            console.log(auth.currentUser);
-          });
+        navigate("/");
+        sendEmailVerification(auth.currentUser).then(() => {
+          // Email verification sent!
+          console.log(auth.currentUser);
         });
       })
       .catch((error) => {
@@ -140,7 +129,7 @@ function SignupPage() {
           onSubmit={onSubmit}
         >
           <Form>
-          <label
+            <label
               htmlFor="exampleFormControlInput0"
               className={SignupPageCSS.label + " form-label"}
             >

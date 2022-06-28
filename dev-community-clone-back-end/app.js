@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const admin = require("firebase-admin");
 
-const signupRouter = require("./controllers/signupRouter");
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
 const usersRouter = require("./controllers/usersRouter");
@@ -30,7 +29,6 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/signup", signupRouter);
 app.use("/api/users", usersRouter);
 
 app.use(unknownEndpoint);

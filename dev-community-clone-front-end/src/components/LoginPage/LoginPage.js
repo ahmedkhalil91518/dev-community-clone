@@ -17,10 +17,12 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import signupService from "../../services/signupService";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -39,12 +41,12 @@ function LoginPage() {
   };
 
   const onSubmit = (values) => {
-    console.log(values);
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        signupService.signup({ uid: user.uid }).then((token) => {});
+        console.log(user);
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -87,22 +89,9 @@ function LoginPage() {
 
   useEffect(() => {
     getRedirectResult(auth).then((result) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
-      let credential = GoogleAuthProvider.credentialFromResult(result);
-      let user;
-      if (credential) {
-        const token = credential.accessToken;
-        // The signed-in user info.
-        user = result.user;
-      } else {
-        credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        user = result.user;
-      }
-
+      const user = result.user;
       console.log(user);
-      signupService.signup({ uid: user.uid }).then((token) => {});
+      navigate("/");
     });
   }, []);
 
