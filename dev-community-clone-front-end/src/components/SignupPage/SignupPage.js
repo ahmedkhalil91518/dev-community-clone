@@ -20,7 +20,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import signupService from "../../services/signupService";
-import userService from "../../services/usersService";
 
 function SignupPage() {
   const [error, setError] = useState("");
@@ -75,6 +74,7 @@ function SignupPage() {
     });
   }, []);
   const validationSchema = Yup.object().shape({
+    name: Yup.string().min(3, "the minimum characters for the name is 3").required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .min(8, "the password must be 8 characters or longer")
@@ -140,6 +140,21 @@ function SignupPage() {
           onSubmit={onSubmit}
         >
           <Form>
+          <label
+              htmlFor="exampleFormControlInput0"
+              className={SignupPageCSS.label + " form-label"}
+            >
+              Name
+            </label>
+            <Field
+              type="text"
+              name="name"
+              className={SignupPageCSS.input + " form-control"}
+              id="exampleFormControlInput0"
+            />
+            <div className={SignupPageCSS.ErrorMessage}>
+              <ErrorMessage name="name" />
+            </div>
             <label
               htmlFor="exampleFormControlInput1"
               className={SignupPageCSS.label + " form-label"}
