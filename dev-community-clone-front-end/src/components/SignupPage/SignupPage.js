@@ -19,15 +19,14 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import SignupService from "../../services/SignupService";
+import signupService from "../../services/signupService";
+import userService from "../../services/usersService";
 
 function SignupPage() {
   const [error, setError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
-
-  const localToken = localStorage.getItem("token");
 
   const handleGoogleSignup = () => {
     signInWithRedirect(auth, googleProvider).catch((error) => {
@@ -72,9 +71,7 @@ function SignupPage() {
       }
 
       console.log(user);
-      SignupService.signup({ uid: user.uid }).then((token) => {
-        localStorage.setItem("token", token);
-      });
+      signupService.signup({ uid: user.uid }).then((token) => {});
     });
   }, []);
   const validationSchema = Yup.object().shape({
@@ -96,7 +93,7 @@ function SignupPage() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
-        SignupService.signup({ uid: user.uid }).then((token) => {
+        signupService.signup({ uid: user.uid }).then((token) => {
           localStorage.setItem("token", token);
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
@@ -116,7 +113,7 @@ function SignupPage() {
         }
       });
   };
-  
+
   return (
     <div className={SignupPageCSS.container}>
       <Card className={SignupPageCSS.page}>

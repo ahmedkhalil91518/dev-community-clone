@@ -17,12 +17,10 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import SignupService from "../../services/SignupService";
+import signupService from "../../services/signupService";
 
 function LoginPage() {
   const [error, setError] = useState("");
-
-  const localToken = localStorage.getItem("token")
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -46,9 +44,7 @@ function LoginPage() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        SignupService.signup({ uid: user.uid }).then((token) => {
-          localStorage.setItem("token", token);
-        });
+        signupService.signup({ uid: user.uid }).then((token) => {});
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -106,9 +102,7 @@ function LoginPage() {
       }
 
       console.log(user);
-      SignupService.signup({ uid: user.uid }).then((token) => {
-        localStorage.setItem("token", token)
-      });
+      signupService.signup({ uid: user.uid }).then((token) => {});
     });
   }, []);
 
