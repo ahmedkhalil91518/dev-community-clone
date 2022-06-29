@@ -18,6 +18,7 @@ import Infinity from "components/Infinity/Infinity";
 import About from "components/About/About";
 import Notifications from "components/Notifications/Notifications";
 import Profile from "components/Profile/Profile";
+import Dashboard from "components/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/:emailName" element={<Profile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </>

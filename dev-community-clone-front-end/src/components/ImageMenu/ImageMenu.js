@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import Divider from '@mui/material/Divider';
 
 const ImageMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -46,7 +47,8 @@ const ImageMenu = () => {
             <span className={ImageMenuCSS.span}>@{emailName}</span>
           </Link>
         </MenuItem>
-        <MenuItem>My account</MenuItem>
+        <Divider />
+        <MenuItem onClick={handleClose}><Link to="dashboard" className={ImageMenuCSS.link}>Dashboard</Link></MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
     </div>
