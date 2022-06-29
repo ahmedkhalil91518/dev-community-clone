@@ -12,6 +12,7 @@ import { useMediaQuery } from "react-responsive";
 import LoginButton from "components/LoginButton/LoginButton";
 import { useSelector } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import ImageMenu from "components/ImageMenu/ImageMenu";
 
 export default function MainBar() {
   const user = useSelector((state) => {
@@ -52,7 +53,7 @@ export default function MainBar() {
             <NotificationsIcon  className={MainBarCSS.notifications}/>
           </Link>
         )}
-        {user && <img src={user.photo} alt="" className={MainBarCSS.photo} />}
+        {user && <ImageMenu />}
       </Toolbar>
     </AppBar>
   );

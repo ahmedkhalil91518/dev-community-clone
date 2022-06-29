@@ -9,7 +9,7 @@ body {
 .TopNav .active {
   color: black;
 }
-.MuiBox-root,
-.MuiList-root {
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper,
+.css-h4y409-MuiList-root {
   height: 100vh;
 }
