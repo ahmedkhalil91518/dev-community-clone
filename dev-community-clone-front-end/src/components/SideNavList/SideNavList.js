@@ -11,8 +11,14 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SideNavListCSS from "./SideNavList.module.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function SideNavList({toggleDrawer}) {
+  const user = useSelector((state) => {
+    // @ts-ignore
+    return state.auth;
+  });
+
   return (
     <Box 
       role="presentation"
@@ -25,7 +31,7 @@ function SideNavList({toggleDrawer}) {
           className={SideNavListCSS.cancelIcon}
           onClick={toggleDrawer(false)}
         />
-        <IntroCard />
+        {!user && <IntroCard />}
         <div className={SideNavListCSS.listContainer}>
           <Link to="/" className={SideNavListCSS.listItem}>
             <HomeIcon className={SideNavListCSS.listItemPart} />{" "}
