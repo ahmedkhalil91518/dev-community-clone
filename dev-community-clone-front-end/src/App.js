@@ -40,10 +40,31 @@ function App() {
             <Route path="infinity" element={<Infinity />} />
           </Route>
         </Route>
-        <Route path="/login" element={<NotRequiredAuth><LoginPage /></NotRequiredAuth>} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route
+          path="/login"
+          element={
+            <NotRequiredAuth>
+              <LoginPage />
+            </NotRequiredAuth>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <NotRequiredAuth>
+              <SignupPage />
+            </NotRequiredAuth>
+          }
+        />
         <Route path="/about" element={<About />} />
-        <Route path="/notifications" element={<Notifications />} />
+        <Route
+          path="/notifications"
+          element={
+            <RequireAuth>
+              <Notifications />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/:emailName"
           element={
@@ -52,7 +73,14 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
       </Routes>
       <Footer />
     </>
