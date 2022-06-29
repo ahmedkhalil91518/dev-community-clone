@@ -32,7 +32,7 @@ const ImageMenu = () => {
   return (
     <div>
       <img
-        src={user.photo}
+        src={user.photo || "https://via.placeholder.com/500"}
         alt=""
         className={ImageMenuCSS.photo}
         id="basic-button"
