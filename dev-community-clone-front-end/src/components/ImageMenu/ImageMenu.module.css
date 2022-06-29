@@ -1,5 +1,14 @@
 .photo {
-    border-radius: 50%;
-    width: 45px;
-    margin: 0 5px;
-  }
+  border-radius: 50%;
+  width: 45px;
+  margin: 0 5px;
+}
+.span{
+  font-size: smaller;
+  color: gray;
+  margin-left: 5px;
+}
+.link {
+  text-decoration: none;
+  color: black;
+}

@@ -3,6 +3,7 @@ import ImageMenuCSS from "./ImageMenu.module.css";
 import { useSelector } from "react-redux";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 
 const ImageMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,7 +18,7 @@ const ImageMenu = () => {
     // @ts-ignore
     return state.auth;
   });
-
+  const emailName = user.email.split("@")[0];
   return (
     <div>
       <img
@@ -38,10 +39,14 @@ const ImageMenu = () => {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
-        className={ImageMenuCSS.menu}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to={emailName} className={ImageMenuCSS.link}>
+            <span>{user.name}</span>{" "}
+            <span className={ImageMenuCSS.span}>@{emailName}</span>
+          </Link>
+        </MenuItem>
+        <MenuItem>My account</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
     </div>

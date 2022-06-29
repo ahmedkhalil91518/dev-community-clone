@@ -17,6 +17,7 @@ import Year from "components/Year/Year";
 import Infinity from "components/Infinity/Infinity";
 import About from "components/About/About";
 import Notifications from "components/Notifications/Notifications";
+import Profile from "components/Profile/Profile";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/notifications" element={<Notifications />} />
-        Notifications
+        <Route path="/:emailName" element={<Profile />} />
       </Routes>
       <Footer />
     </>
