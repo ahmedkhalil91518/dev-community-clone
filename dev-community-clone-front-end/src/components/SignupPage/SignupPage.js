@@ -17,14 +17,18 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   getRedirectResult,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authorizeUser } from "../../reducers/authReducer";
 
 function SignupPage() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
@@ -57,8 +61,16 @@ function SignupPage() {
 
   useEffect(() => {
     getRedirectResult(auth).then((result) => {
-      const user = result.user;
-      console.log(user);
+      console.log(result);
+      dispatch(
+        authorizeUser({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          uid: result.user.uid,
+          provider: result.user.providerData,
+        })
+      );
       navigate("/");
     });
   }, []);
@@ -80,14 +92,27 @@ function SignupPage() {
   const onSubmit = async (values) => {
     console.log(values);
     createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
+      .then((result) => {
         // Signed in
-        const user = userCredential.user;
+        const user = result.user;
         console.log(user);
-        navigate("/");
-        sendEmailVerification(auth.currentUser).then(() => {
-          // Email verification sent!
-          console.log(auth.currentUser);
+        updateProfile(auth.currentUser, {
+          displayName: values.name,
+        }).then(() => {
+          dispatch(
+            authorizeUser({
+              name: values.name,
+              email: result.user.email,
+              photo: null,
+              uid: result.user.uid,
+              provider: result.user.providerData,
+            })
+          );
+          navigate("/");
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            console.log(auth.currentUser);
+          });
         });
       })
       .catch((error) => {

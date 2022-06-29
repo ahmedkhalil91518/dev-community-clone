@@ -18,12 +18,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authorizeUser } from "../../reducers/authReducer";
 
 function LoginPage() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
@@ -89,8 +92,16 @@ function LoginPage() {
 
   useEffect(() => {
     getRedirectResult(auth).then((result) => {
-      const user = result.user;
-      console.log(user);
+      console.log(result);
+      dispatch(
+        authorizeUser({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          uid: result.user.uid,
+          provider: result.user.providerData,
+        })
+      );
       navigate("/");
     });
   }, []);
