@@ -26,7 +26,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
 
@@ -45,9 +45,18 @@ function LoginPage() {
 
   const onSubmit = (values) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
+      .then((result) => {
         // Signed in
-        const user = userCredential.user;
+        const user = result.user;
+        dispatch(
+          authorizeUser({
+            name: result.user.displayName,
+            email: result.user.email,
+            photo: result.user.photoURL,
+            uid: result.user.uid,
+            provider: result.user.providerData,
+          })
+        );
         console.log(user);
         navigate("/");
       })

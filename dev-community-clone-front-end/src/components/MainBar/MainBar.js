@@ -38,7 +38,7 @@ export default function MainBar() {
         <Link to="/" className={MainBarCSS.appTitle}>
           Home
         </Link>
-        {isDesktopOrLaptop && <LoginButton />}
+        {isDesktopOrLaptop  && !user && <LoginButton />}
         {isTabletOrMobile && (
           <Button className={MainBarCSS.searchButton}>
             <SearchIcon />
