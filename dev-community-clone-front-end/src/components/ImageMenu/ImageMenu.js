@@ -49,6 +49,14 @@ const ImageMenu = () => {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
       >
         <MenuItem onClick={handleClose}>
           <Link to={emailName} className={ImageMenuCSS.link}>
