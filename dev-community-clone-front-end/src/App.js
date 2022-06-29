@@ -19,6 +19,7 @@ import About from "components/About/About";
 import Notifications from "components/Notifications/Notifications";
 import Profile from "components/Profile/Profile";
 import Dashboard from "components/Dashboard/Dashboard";
+import RequireAuth from "components/RequireAuth";
 
 function App() {
   return (
@@ -42,7 +43,14 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/:emailName" element={<Profile />} />
+        <Route
+          path="/:emailName"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
