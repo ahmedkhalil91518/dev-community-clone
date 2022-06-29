@@ -4,9 +4,13 @@ import { useSelector } from "react-redux";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import Divider from '@mui/material/Divider';
-
+import Divider from "@mui/material/Divider";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "reducers/authReducer";
 const ImageMenu = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -14,6 +18,11 @@ const ImageMenu = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    setAnchorEl(null);
+    dispatch(logout());
+    navigate("/");
   };
   const user = useSelector((state) => {
     // @ts-ignore
@@ -48,8 +57,12 @@ const ImageMenu = () => {
           </Link>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}><Link to="dashboard" className={ImageMenuCSS.link}>Dashboard</Link></MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="dashboard" className={ImageMenuCSS.link}>
+            Dashboard
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
