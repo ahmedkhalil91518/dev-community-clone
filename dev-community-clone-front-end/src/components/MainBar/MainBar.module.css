@@ -5,7 +5,7 @@
 }
 .searchButton {
   color: black !important;
-  padding: 10px !important;
+  margin: 0 5px;
 }
 .appTitle {
   font-size: x-large;
@@ -20,4 +20,14 @@
   padding: 5px 15% !important;
   background-color: white;
   max-height: 54px;
+}
+.photo {
+  border-radius: 50%;
+  width: 45px;
+  margin: 0 5px;
+}
+.notifications {
+  color: black;
+  font-size:large;
+  margin: 0 5px;
 }

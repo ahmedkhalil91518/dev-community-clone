@@ -11,11 +11,13 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import LoginButton from "components/LoginButton/LoginButton";
 import { useSelector } from "react-redux";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 export default function MainBar() {
   const user = useSelector((state) => {
     // @ts-ignore
-    return state.auth});
+    return state.auth;
+  });
 
   console.log(user);
   const isDesktopOrLaptop = useMediaQuery({
@@ -38,14 +40,19 @@ export default function MainBar() {
         <Link to="/" className={MainBarCSS.appTitle}>
           Home
         </Link>
-        {isDesktopOrLaptop  && !user && <LoginButton />}
+        {isDesktopOrLaptop && !user && <LoginButton />}
         {isTabletOrMobile && (
           <Button className={MainBarCSS.searchButton}>
             <SearchIcon />
           </Button>
         )}
         {!user && <CreateAccountButton />}
-        {user && <img src={user.photo} alt=""/>}
+        {user && (
+          <Link to="notifications">
+            <NotificationsIcon  className={MainBarCSS.notifications}/>
+          </Link>
+        )}
+        {user && <img src={user.photo} alt="" className={MainBarCSS.photo} />}
       </Toolbar>
     </AppBar>
   );
