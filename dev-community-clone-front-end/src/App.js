@@ -20,6 +20,7 @@ import Notifications from "components/Notifications/Notifications";
 import Profile from "components/Profile/Profile";
 import Dashboard from "components/Dashboard/Dashboard";
 import RequireAuth from "components/RequireAuth";
+import NotRequiredAuth from "components/NotRequiredAuth";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             <Route path="infinity" element={<Infinity />} />
           </Route>
         </Route>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<NotRequiredAuth><LoginPage /></NotRequiredAuth>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/notifications" element={<Notifications />} />

@@ -1,4 +1,4 @@
-/* import React from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
@@ -14,4 +14,4 @@ const NotRequiredAuth = ({ children }) => {
   }
 };
 
-export default NotRequiredAuth; */
+export default NotRequiredAuth;
