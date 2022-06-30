@@ -21,68 +21,79 @@ import Profile from "components/Profile/Profile";
 import Dashboard from "components/Dashboard/Dashboard";
 import RequireAuth from "components/RequireAuth";
 import NotRequiredAuth from "components/NotRequiredAuth";
-
+import BeatLoader from "react-spinners/BeatLoader";
+import { useSelector } from "react-redux";
 function App() {
+  // @ts-ignore
+  const loading = useSelector((state) => state.loading);
   return (
     <>
-      <MainBar />
-      <Main />
-      <Routes>
-        <Route path="/" element={<Posts />}>
-          <Route index element={<Relative />} />
-          <Route path="relative" element={<Relative />} />
-          <Route path="latest" element={<Latest />} />
-          <Route path="top" element={<Top />}>
-            <Route index element={<Week />} />
-            <Route path="week" element={<Week />} />
-            <Route path="month" element={<Month />} />
-            <Route path="year" element={<Year />} />
-            <Route path="infinity" element={<Infinity />} />
-          </Route>
-        </Route>
-        <Route
-          path="/login"
-          element={
-            <NotRequiredAuth>
-              <LoginPage />
-            </NotRequiredAuth>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <NotRequiredAuth>
-              <SignupPage />
-            </NotRequiredAuth>
-          }
-        />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/notifications"
-          element={
-            <RequireAuth>
-              <Notifications />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/:emailName"
-          element={
-            <RequireAuth>
-              <Profile />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-      </Routes>
-      <Footer />
+      {loading ? (
+        <div className="loaderContainer">
+          <BeatLoader loading={loading} />
+        </div>
+      ) : (
+        <>
+          <MainBar />
+          <Main />
+          <Routes>
+            <Route path="/" element={<Posts />}>
+              <Route index element={<Relative />} />
+              <Route path="relative" element={<Relative />} />
+              <Route path="latest" element={<Latest />} />
+              <Route path="top" element={<Top />}>
+                <Route index element={<Week />} />
+                <Route path="week" element={<Week />} />
+                <Route path="month" element={<Month />} />
+                <Route path="year" element={<Year />} />
+                <Route path="infinity" element={<Infinity />} />
+              </Route>
+            </Route>
+            <Route
+              path="/login"
+              element={
+                <NotRequiredAuth>
+                  <LoginPage />
+                </NotRequiredAuth>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <NotRequiredAuth>
+                  <SignupPage />
+                </NotRequiredAuth>
+              }
+            />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/notifications"
+              element={
+                <RequireAuth>
+                  <Notifications />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/:emailName"
+              element={
+                <RequireAuth>
+                  <Profile />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+          </Routes>
+          <Footer />
+        </>
+      )}
     </>
   );
 }

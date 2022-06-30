@@ -18,9 +18,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import loadingReducer from "reducers/loadingReducer";
 
 const reducers = combineReducers({
   auth: authReducer,
+  loading: loadingReducer
 });
 
 const persistConfig = {

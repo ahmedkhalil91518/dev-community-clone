@@ -20,6 +20,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
+import { disableLoading, enableLoading } from "reducers/loadingReducer";
 
 function LoginPage() {
   const [error, setError] = useState("");
@@ -44,6 +45,7 @@ function LoginPage() {
   };
 
   const onSubmit = (values) => {
+    dispatch(enableLoading())
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((result) => {
         // Signed in
@@ -59,8 +61,10 @@ function LoginPage() {
         );
         console.log(user);
         navigate("/");
+        dispatch(disableLoading())
       })
       .catch((error) => {
+        dispatch(disableLoading())
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);

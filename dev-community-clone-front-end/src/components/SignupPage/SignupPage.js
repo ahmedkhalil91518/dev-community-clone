@@ -23,6 +23,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
+import { disableLoading, enableLoading } from "reducers/loadingReducer";
 
 function SignupPage() {
   const [error, setError] = useState("");
@@ -61,7 +62,6 @@ function SignupPage() {
 
   useEffect(() => {
     getRedirectResult(auth).then((result) => {
-      console.log(result);
       dispatch(
         authorizeUser({
           name: result.user.displayName,
@@ -91,6 +91,7 @@ function SignupPage() {
 
   const onSubmit = async (values) => {
     console.log(values);
+    dispatch(enableLoading())
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((result) => {
         // Signed in
@@ -109,6 +110,7 @@ function SignupPage() {
             })
           );
           navigate("/");
+          dispatch(disableLoading())
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
             console.log(auth.currentUser);
@@ -116,6 +118,7 @@ function SignupPage() {
         });
       })
       .catch((error) => {
+        dispatch(disableLoading())
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
