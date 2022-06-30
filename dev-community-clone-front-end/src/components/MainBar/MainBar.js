@@ -49,8 +49,13 @@ export default function MainBar() {
         )}
         {!user && <CreateAccountButton />}
         {user && (
+          <Link to="newPost">
+            <button className={MainBarCSS.createPostButton}>Create Post</button>
+          </Link>
+        )}
+        {user && (
           <Link to="notifications">
-            <NotificationsIcon  className={MainBarCSS.notifications}/>
+            <NotificationsIcon className={MainBarCSS.notifications} />
           </Link>
         )}
         {user && <ImageMenu />}

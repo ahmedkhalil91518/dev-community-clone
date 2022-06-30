@@ -26,3 +26,21 @@
   font-size: large;
   margin: 0 5px;
 }
+.createPostButton {
+  margin: 0 5px !important;
+  border-width: 1px !important;
+  padding: 10px !important;
+  font-size: medium !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  background-color: white;
+  border-radius: 10px;
+  border-color: blue;
+  color: blue;
+}
+.createPostButton:hover {
+  background-color: blue !important;
+  color: white;
+  text-decoration: underline !important; 
+  text-decoration-color: white !important;
+}
