@@ -23,6 +23,7 @@ import RequireAuth from "components/RequireAuth";
 import NotRequiredAuth from "components/NotRequiredAuth";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useSelector } from "react-redux";
+import NewPost from "components/NewPost/NewPost";
 function App() {
   // @ts-ignore
   const loading = useSelector((state) => state.loading);
@@ -86,6 +87,14 @@ function App() {
           element={
             <RequireAuth>
               <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/newPost"
+          element={
+            <RequireAuth>
+              <NewPost />
             </RequireAuth>
           }
         />
