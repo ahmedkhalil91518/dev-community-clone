@@ -1,0 +1,12 @@
+.container {
+    background-color: white;
+    min-height: 100vh;
+    margin: 5% 20%;
+    padding: 20px
+}
+.containerSmall {
+    margin: 10px;
+    background-color: white;
+    min-height: 100vh;
+    padding: 20px
+}

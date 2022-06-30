@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react"
+import React, { useCallback, useState } from "react"
 import isHotkey from "is-hotkey"
 import { Editable, withReact, useSlate, Slate } from "slate-react"
 import {
@@ -10,6 +10,7 @@ import {
 import { withHistory } from "slate-history"
 import NewPostCSS from "./NewPost.module.css"
 import { Button, Icon, Toolbar } from "./components"
+import { useMediaQuery } from "react-responsive"
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -21,14 +22,22 @@ const HOTKEYS = {
 const LIST_TYPES = ["numbered-list", "bulleted-list"]
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"]
 
-const RichTextExample = () => {
+const NewPost = () => {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+  // @ts-ignore
+  const [editor] = useState(withReact(createEditor()));
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
 
   return (
+    <div className={isTabletOrMobile ? NewPostCSS.containerSmall : NewPostCSS.container}>
+      <h3 className={NewPostCSS.h3}>Create a Post</h3>
     <Slate editor={editor} value={initialValue}>
-      <Toolbar>
+      <
+// @ts-ignore
+      Toolbar>
         <MarkButton format="bold" icon="format_bold" />
         <MarkButton format="italic" icon="format_italic" />
         <MarkButton format="underline" icon="format_underlined" />
@@ -59,7 +68,7 @@ const RichTextExample = () => {
           }
         }}
       />
-    </Slate>
+    </Slate></div>
   )
 }
 
@@ -75,6 +84,7 @@ const toggleBlock = (editor, format) => {
     match: n =>
       !Editor.isEditor(n) &&
       SlateElement.isElement(n) &&
+      // @ts-ignore
       LIST_TYPES.includes(n.type) &&
       !TEXT_ALIGN_TYPES.includes(format),
     split: true
@@ -82,6 +92,7 @@ const toggleBlock = (editor, format) => {
   let newProperties
   if (TEXT_ALIGN_TYPES.includes(format)) {
     newProperties = {
+      // @ts-ignore
       align: isActive ? undefined : format
     }
   } else {
@@ -200,7 +211,9 @@ const Leaf = ({ attributes, children, leaf }) => {
 const BlockButton = ({ format, icon }) => {
   const editor = useSlate()
   return (
-    <Button
+    <
+// @ts-ignore
+    Button
       active={isBlockActive(
         editor,
         format,
@@ -211,7 +224,9 @@ const BlockButton = ({ format, icon }) => {
         toggleBlock(editor, format)
       }}
     >
-      <Icon>{icon}</Icon>
+      <
+// @ts-ignore
+      Icon>{icon}</Icon>
     </Button>
   )
 }
@@ -219,14 +234,18 @@ const BlockButton = ({ format, icon }) => {
 const MarkButton = ({ format, icon }) => {
   const editor = useSlate()
   return (
-    <Button
+    <
+// @ts-ignore
+    Button
       active={isMarkActive(editor, format)}
       onMouseDown={event => {
         event.preventDefault()
         toggleMark(editor, format)
       }}
     >
-      <Icon>{icon}</Icon>
+      <
+// @ts-ignore
+      Icon>{icon}</Icon>
     </Button>
   )
 }
@@ -269,4 +288,4 @@ const initialValue = [
   }
 ]
 
-export default RichTextExample
+export default NewPost

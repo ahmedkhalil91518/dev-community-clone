@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import { cx, css } from "@emotion/css"
 
 export const Button = React.forwardRef(
+  // @ts-ignore
   ({ className, active, reversed, ...props }, ref) => (
     <span
       {...props}
@@ -25,6 +26,7 @@ export const Button = React.forwardRef(
 )
 
 export const EditorValue = React.forwardRef(
+  // @ts-ignore
   ({ className, value, ...props }, ref) => {
     const textLines = value.document.nodes
       .map(node => node.text)
@@ -70,6 +72,7 @@ export const EditorValue = React.forwardRef(
   }
 )
 
+// @ts-ignore
 export const Icon = React.forwardRef(({ className, ...props }, ref) => (
   <span
     {...props}
@@ -85,6 +88,7 @@ export const Icon = React.forwardRef(({ className, ...props }, ref) => (
   />
 ))
 
+// @ts-ignore
 export const Instruction = React.forwardRef(({ className, ...props }, ref) => (
   <div
     {...props}
@@ -102,6 +106,7 @@ export const Instruction = React.forwardRef(({ className, ...props }, ref) => (
   />
 ))
 
+// @ts-ignore
 export const Menu = React.forwardRef(({ className, ...props }, ref) => (
   <div
     {...props}
@@ -126,10 +131,12 @@ export const Portal = ({ children }) => {
     : null
 }
 
+// @ts-ignore
 export const Toolbar = React.forwardRef(({ className, ...props }, ref) => (
   <Menu
     {...props}
     ref={ref}
+    // @ts-ignore
     className={cx(
       className,
       css`
