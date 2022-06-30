@@ -78,6 +78,7 @@ function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
+    dispatch(enableLoading())
     signInWithRedirect(auth, googleProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -91,6 +92,7 @@ function LoginPage() {
   };
 
   const handleGithubLogin = () => {
+    dispatch(enableLoading())
     signInWithRedirect(auth, githubProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -116,7 +118,8 @@ function LoginPage() {
         })
       );
       navigate("/");
-    });
+      dispatch(disableLoading());
+    }).catch(error => dispatch(disableLoading()));
   }, []);
 
   return (

@@ -35,6 +35,7 @@ function SignupPage() {
   const githubProvider = new GithubAuthProvider();
 
   const handleGoogleSignup = () => {
+    dispatch(enableLoading())
     signInWithRedirect(auth, googleProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -48,6 +49,7 @@ function SignupPage() {
   };
 
   const handleGithubSignup = () => {
+    dispatch(enableLoading())
     signInWithRedirect(auth, githubProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -72,7 +74,8 @@ function SignupPage() {
         })
       );
       navigate("/");
-    });
+      dispatch(disableLoading());
+    }).catch(error => dispatch(disableLoading()));
   }, []);
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -91,7 +94,7 @@ function SignupPage() {
 
   const onSubmit = async (values) => {
     console.log(values);
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((result) => {
         // Signed in
@@ -110,7 +113,7 @@ function SignupPage() {
             })
           );
           navigate("/");
-          dispatch(disableLoading())
+          dispatch(disableLoading());
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
             console.log(auth.currentUser);
@@ -118,7 +121,7 @@ function SignupPage() {
         });
       })
       .catch((error) => {
-        dispatch(disableLoading())
+        dispatch(disableLoading());
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
