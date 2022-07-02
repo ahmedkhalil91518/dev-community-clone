@@ -48,7 +48,7 @@ export default function MainBar() {
           </Button>
         )}
         {!user && <CreateAccountButton />}
-        {user && (
+        {isDesktopOrLaptop && user && (
           <Link to="newPost">
             <button className={MainBarCSS.createPostButton}>Create Post</button>
           </Link>
