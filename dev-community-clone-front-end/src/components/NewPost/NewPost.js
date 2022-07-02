@@ -25,6 +25,8 @@ import {
   faAlignRight,
   faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
+import CoverPicture from "components/CoverPicture/CoverPicture";
+
 const HOTKEYS = {
   "mod+b": "bold",
   "mod+i": "italic",
@@ -50,6 +52,7 @@ const NewPost = () => {
       }
     >
       <h3 className={NewPostCSS.h3}>Create a Post</h3>
+      <div className={NewPostCSS.subContainer}><CoverPicture/></div>
       <div className={NewPostCSS.subContainer}>
         <Slate editor={editor} value={titleValue}>
           <Editable
