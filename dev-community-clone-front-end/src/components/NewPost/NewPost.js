@@ -44,7 +44,10 @@ const NewPost = () => {
   const [editor] = useState(withReact(createEditor()));
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-
+  const handleClick = () => {
+    const value = JSON.parse(localStorage.getItem("content"));
+    console.log(value);
+  };
   return (
     <div
       className={
@@ -52,7 +55,9 @@ const NewPost = () => {
       }
     >
       <h3 className={NewPostCSS.h3}>Create a Post</h3>
-      <div className={NewPostCSS.subContainer}><CoverPicture/></div>
+      <div className={NewPostCSS.subContainer}>
+        <CoverPicture />
+      </div>
       <div className={NewPostCSS.subContainer}>
         <Slate editor={editor} value={titleValue}>
           <Editable
@@ -63,7 +68,15 @@ const NewPost = () => {
             autoFocus
           />
         </Slate>
-        <Slate editor={editor} value={initialValue}>
+        <Slate
+          editor={editor}
+          value={initialValue}
+          onChange={(value) => {
+            // Save the value to Local Storage.
+            const content = JSON.stringify(value);
+            localStorage.setItem("content", content);
+          }}
+        >
           <Toolbar>
             <MarkButton format="bold" icon="format_bold" />
             <MarkButton format="italic" icon="format_italic" />
@@ -95,6 +108,7 @@ const NewPost = () => {
           />
         </Slate>
       </div>
+      <button onClick={handleClick}>publish</button>
     </div>
   );
 };
