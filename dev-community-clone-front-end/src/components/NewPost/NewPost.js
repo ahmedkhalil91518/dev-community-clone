@@ -19,7 +19,11 @@ import {
   faCode,
   faQuoteLeft,
   faListNumeric,
-  faListDots, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify
+  faListDots,
+  faAlignLeft,
+  faAlignCenter,
+  faAlignRight,
+  faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
 const HOTKEYS = {
   "mod+b": "bold",
@@ -46,38 +50,48 @@ const NewPost = () => {
       }
     >
       <h3 className={NewPostCSS.h3}>Create a Post</h3>
-      <Slate editor={editor} value={initialValue}>
-        <Toolbar>
-          <MarkButton format="bold" icon="format_bold" />
-          <MarkButton format="italic" icon="format_italic" />
-          <MarkButton format="underline" icon="format_underlined" />
-          <MarkButton format="code" icon="code" />
-          <BlockButton format="heading-one" icon="looks_one" />
-          <BlockButton format="block-quote" icon="format_quote" />
-          <BlockButton format="numbered-list" icon="format_list_numbered" />
-          <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-          <BlockButton format="left" icon="format_align_left" />
-          <BlockButton format="center" icon="format_align_center" />
-          <BlockButton format="right" icon="format_align_right" />
-          <BlockButton format="justify" icon="format_align_justify" />
-        </Toolbar>
-        <Editable
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          placeholder="Enter some rich text…"
-          spellCheck
-          autoFocus
-          onKeyDown={(event) => {
-            for (const hotkey in HOTKEYS) {
-              if (isHotkey(hotkey, event)) {
-                event.preventDefault();
-                const mark = HOTKEYS[hotkey];
-                toggleMark(editor, mark);
+      <div className={NewPostCSS.subContainer}>
+        <Slate editor={editor} value={titleValue}>
+          <Editable
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            placeholder="Enter your title here"
+            spellCheck
+            autoFocus
+          />
+        </Slate>
+        <Slate editor={editor} value={initialValue}>
+          <Toolbar>
+            <MarkButton format="bold" icon="format_bold" />
+            <MarkButton format="italic" icon="format_italic" />
+            <MarkButton format="underline" icon="format_underlined" />
+            <MarkButton format="code" icon="code" />
+            <BlockButton format="heading-one" icon="looks_one" />
+            <BlockButton format="block-quote" icon="format_quote" />
+            <BlockButton format="numbered-list" icon="format_list_numbered" />
+            <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+            <BlockButton format="left" icon="format_align_left" />
+            <BlockButton format="center" icon="format_align_center" />
+            <BlockButton format="right" icon="format_align_right" />
+            <BlockButton format="justify" icon="format_align_justify" />
+          </Toolbar>
+          <Editable
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            placeholder="Enter your article here"
+            spellCheck
+            onKeyDown={(event) => {
+              for (const hotkey in HOTKEYS) {
+                if (isHotkey(hotkey, event)) {
+                  event.preventDefault();
+                  const mark = HOTKEYS[hotkey];
+                  toggleMark(editor, mark);
+                }
               }
-            }
-          }}
-        />
-      </Slate>
+            }}
+          />
+        </Slate>
+      </div>
     </div>
   );
 };
@@ -313,9 +327,14 @@ const MarkButton = ({ format, icon }) => {
 const initialValue = [
   {
     type: "paragraph",
-    children: [
-      { text: "just delete this text and start typing" }
-    ],
+    children: [{ text: "" }],
+  },
+];
+
+const titleValue = [
+  {
+    type: "title",
+    children: [{ text: "" }],
   },
 ];
 
