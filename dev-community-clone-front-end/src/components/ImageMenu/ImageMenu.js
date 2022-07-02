@@ -70,6 +70,9 @@ const ImageMenu = () => {
             Dashboard
           </Link>
         </MenuItem>
+        <MenuItem onClick={handleClose}>
+        <Link to="newPost" className={ImageMenuCSS.link}>Create Post</Link></MenuItem>
+        <Divider />
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
