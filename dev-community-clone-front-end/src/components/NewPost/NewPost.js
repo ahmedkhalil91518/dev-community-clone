@@ -26,6 +26,8 @@ import {
   faAlignJustify,
 } from "@fortawesome/free-solid-svg-icons";
 import CoverPicture from "components/CoverPicture/CoverPicture";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -48,65 +50,89 @@ const NewPost = () => {
     const value = JSON.parse(localStorage.getItem("content"));
     console.log(value);
   };
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(10, "the minimum characters for the title is 10")
+      .required("Required"),
+  });
+
+  const initialValues = {
+    title: "",
+  };
+  const handleSubmit = () => {};
   return (
     <div
       className={
         isTabletOrMobile ? NewPostCSS.containerSmall : NewPostCSS.container
       }
     >
-      <h3 className={NewPostCSS.h3}>Create a Post</h3>
+      <h1>Create a Post</h1>
       <div className={NewPostCSS.subContainer}>
         <CoverPicture />
       </div>
       <div className={NewPostCSS.subContainer}>
-        <Slate editor={editor} value={titleValue}>
-          <Editable
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            placeholder="Enter your title here"
-            spellCheck
-            autoFocus
-          />
-        </Slate>
-        <Slate
-          editor={editor}
-          value={initialValue}
-          onChange={(value) => {
-            // Save the value to Local Storage.
-            const content = JSON.stringify(value);
-            localStorage.setItem("content", content);
-          }}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
-          <Toolbar>
-            <MarkButton format="bold" icon="format_bold" />
-            <MarkButton format="italic" icon="format_italic" />
-            <MarkButton format="underline" icon="format_underlined" />
-            <MarkButton format="code" icon="code" />
-            <BlockButton format="heading-one" icon="looks_one" />
-            <BlockButton format="block-quote" icon="format_quote" />
-            <BlockButton format="numbered-list" icon="format_list_numbered" />
-            <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-            <BlockButton format="left" icon="format_align_left" />
-            <BlockButton format="center" icon="format_align_center" />
-            <BlockButton format="right" icon="format_align_right" />
-            <BlockButton format="justify" icon="format_align_justify" />
-          </Toolbar>
-          <Editable
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            placeholder="Enter your article here"
-            spellCheck
-            onKeyDown={(event) => {
-              for (const hotkey in HOTKEYS) {
-                if (isHotkey(hotkey, event)) {
-                  event.preventDefault();
-                  const mark = HOTKEYS[hotkey];
-                  toggleMark(editor, mark);
-                }
-              }
-            }}
-          />
-        </Slate>
+          <div>
+            {" "}
+            <Form>
+              <label htmlFor="exampleFormControlInput0">title</label>
+              <Field type="text" name="title" id="exampleFormControlInput0" />
+              <div>
+                <ErrorMessage name="title" />
+              </div>
+            </Form>
+            <Slate
+              editor={editor}
+              value={initialValue}
+              onChange={(value) => {
+                // Save the value to Local Storage.
+                const content = JSON.stringify(value);
+                localStorage.setItem("content", content);
+              }}
+            >
+              <Toolbar>
+                <MarkButton format="bold" icon="format_bold" />
+                <MarkButton format="italic" icon="format_italic" />
+                <MarkButton format="underline" icon="format_underlined" />
+                <MarkButton format="code" icon="code" />
+                <BlockButton format="heading-one" icon="looks_one" />
+                <BlockButton format="block-quote" icon="format_quote" />
+                <BlockButton
+                  format="numbered-list"
+                  icon="format_list_numbered"
+                />
+                <BlockButton
+                  format="bulleted-list"
+                  icon="format_list_bulleted"
+                />
+                <BlockButton format="left" icon="format_align_left" />
+                <BlockButton format="center" icon="format_align_center" />
+                <BlockButton format="right" icon="format_align_right" />
+                <BlockButton format="justify" icon="format_align_justify" />
+              </Toolbar>
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                placeholder="Enter your article here"
+                spellCheck
+                onKeyDown={(event) => {
+                  for (const hotkey in HOTKEYS) {
+                    if (isHotkey(hotkey, event)) {
+                      event.preventDefault();
+                      const mark = HOTKEYS[hotkey];
+                      toggleMark(editor, mark);
+                    }
+                  }
+                }}
+              />
+            </Slate>
+          </div>
+        </Formik>
       </div>
       <button onClick={handleClick}>publish</button>
     </div>
@@ -344,13 +370,6 @@ const MarkButton = ({ format, icon }) => {
 const initialValue = [
   {
     type: "paragraph",
-    children: [{ text: "" }],
-  },
-];
-
-const titleValue = [
-  {
-    type: "title",
     children: [{ text: "" }],
   },
 ];

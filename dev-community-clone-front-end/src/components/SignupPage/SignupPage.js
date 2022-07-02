@@ -88,6 +88,7 @@ function SignupPage() {
   });
 
   const initialValues = {
+    name:"",
     email: "",
     password: "",
   };
