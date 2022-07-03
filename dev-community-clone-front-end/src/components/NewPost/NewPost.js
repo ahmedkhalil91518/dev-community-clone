@@ -137,7 +137,7 @@ const NewPost = () => {
           </div>
         </Formik>
       </div>
-      <button onClick={handleClick}>publish</button>
+      <button onClick={handleClick} className={NewPostCSS.button}>publish</button>
     </div>
   );
 };

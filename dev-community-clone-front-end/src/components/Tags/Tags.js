@@ -18,7 +18,7 @@ export default class CreatableMulti extends Component {
   };
   render() {
     return (
-        <div className={TagsCSS.select}>
+        <div className={TagsCSS.selectContainer}>
       <CreatableSelect
         isMulti
         onChange={this.handleChange}
