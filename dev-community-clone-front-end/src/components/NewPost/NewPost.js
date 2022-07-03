@@ -80,10 +80,11 @@ const NewPost = () => {
           <div>
             {" "}
             <Form>
-              <label htmlFor="exampleFormControlInput0">title</label>
-              <Field type="text" name="title" id="exampleFormControlInput0" />
               <div>
-                <ErrorMessage name="title" />
+                <Field type="text" name="title" id="exampleFormControlInput0" className={NewPostCSS.field} placeholder="enter your title here" />
+                <div className={NewPostCSS.error + " " + NewPostCSS.errorContainer}>
+                  <ErrorMessage name="title" />
+                </div>
               </div>
             </Form>
             <Slate

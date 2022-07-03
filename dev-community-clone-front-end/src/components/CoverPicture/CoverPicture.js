@@ -1,8 +1,8 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-
+import CoverPictureCSS from "./CoverPicture.module.css";
 export function CoverPicture() {
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState([]);
   const maxNumber = 1;
 
   const onChange = (uploadImage) => {
@@ -30,40 +30,28 @@ export function CoverPicture() {
           dragProps,
         }) => (
           // write your building UI
-          <div className="upload__image-wrapper">
-            <button
-              style={isDragging ? { color: "red" } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here your cover photo
-            </button>
-            &nbsp;
-            <button onClick={onImageRemoveAll}>Remove the cover photo</button>
+          <div className={CoverPictureCSS.uploadImageWrapper}>
+            <div className={CoverPictureCSS.uploadButtons}>
+              <button
+                style={isDragging ? { color: "red" } : undefined}
+                onClick={onImageUpload}
+                {...dragProps}
+                className={CoverPictureCSS.button}
+                disabled={image[0] ? true: false}
+              >
+                Click or Drop here your cover photo
+              </button>
+              {/* <button onClick={onImageRemoveAll} className={CoverPictureCSS.button}>Remove the cover photo</button> */}
+            </div>
             {imageList.map((image, index) => (
-              <div key={index} className="image-item">
-                <img src={image["data_url"]} alt="" width="100" />
-                <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
+              <div key={index} className={CoverPictureCSS.imageItem}>
+                <img src={image["data_url"]} alt=""  className={CoverPictureCSS.image}/>
+                <div className={CoverPictureCSS.imageItemButtons}>
+                  <button onClick={() => onImageUpdate(index)} className={CoverPictureCSS.button}>Update</button>
+                  <button onClick={() => onImageRemove(index)} className={CoverPictureCSS.button}>Remove</button>
                 </div>
               </div>
             ))}
-           { errors &&
-            <div>
-              {errors.maxNumber && (
-                <span>Number of selected images exceed maxNumber</span>
-              )}
-              {errors.acceptType && (
-                <span>Your selected file type is not allow</span>
-              )}
-              {errors.maxFileSize && (
-                <span>Selected file size exceed maxFileSize</span>
-              )}
-              {errors.resolution && (
-                <span>Selected file is not match your desired resolution</span>
-              )}
-            </div>}
           </div>
         )}
       </ImageUploading>
