@@ -28,6 +28,7 @@ import {
 import CoverPicture from "components/CoverPicture/CoverPicture";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Tags from "../Tags/Tags"
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -87,6 +88,7 @@ const NewPost = () => {
                 </div>
               </div>
             </Form>
+          <Tags />
             <Slate
               editor={editor}
               value={initialValue}
