@@ -1,30 +1,32 @@
 import React, { Component } from "react";
-import TagsCSS from "./Tags.module.css"
+import TagsCSS from "./Tags.module.css";
 import CreatableSelect from "react-select/creatable";
 import { ActionMeta, OnChangeValue } from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { tags } from "reducers/newPostReducer";
 
 const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 
-export default class CreatableMulti extends Component {
-  handleChange = (newValue, actionMeta) => {
-    console.group("Value Changed");
-    console.log(newValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
+const Tags = () => {
+  const dispatch = useDispatch();
+
+  const handleChange = (newValue, actionMeta) => {
+    dispatch(tags(newValue))
   };
-  render() {
-    return (
-        <div className={TagsCSS.selectContainer}>
+  return (
+    <div className={TagsCSS.selectContainer}>
       <CreatableSelect
         isMulti
-        onChange={this.handleChange}
+        onChange={handleChange}
         options={options}
         placeholder="add your tags here"
-      /></div>
-    );
-  }
-}
+      />
+    </div>
+  );
+};
+
+export default Tags;

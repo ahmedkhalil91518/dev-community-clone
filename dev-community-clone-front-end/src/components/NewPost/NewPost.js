@@ -50,11 +50,7 @@ const NewPost = () => {
   const [editor] = useState(withReact(createEditor()));
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-  const handleClick = () => {
-    const value = JSON.parse(localStorage.getItem("content"));
-    console.log(value);
-  };
-
+ 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .min(10, "the minimum characters for the title is 10")
