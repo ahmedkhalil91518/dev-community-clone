@@ -19,10 +19,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import loadingReducer from "reducers/loadingReducer";
+import newPostReducer from "reducers/newPostReducer";
 
 const reducers = combineReducers({
   auth: authReducer,
-  loading: loadingReducer
+  loading: loadingReducer, 
+  newPost: newPostReducer
 });
 
 const persistConfig = {

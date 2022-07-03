@@ -1,14 +1,21 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
 import CoverPictureCSS from "./CoverPicture.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { coverPicture } from "reducers/newPostReducer";
+
 export function CoverPicture() {
   const [image, setImage] = React.useState([]);
+  const dispatch = useDispatch();
   const maxNumber = 1;
-
+// @ts-ignore
+const prisitedImage = useSelector(state => state.newPost)
   const onChange = (uploadImage) => {
     // data for submit
     console.log(uploadImage);
     setImage(uploadImage);
+    dispatch(coverPicture(JSON.stringify(uploadImage)))
+    console.log(uploadImage);
   };
 
   return (

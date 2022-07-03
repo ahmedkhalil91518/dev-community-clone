@@ -28,7 +28,9 @@ import {
 import CoverPicture from "components/CoverPicture/CoverPicture";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Tags from "../Tags/Tags"
+import Tags from "../Tags/Tags";
+import { useDispatch, useSelector } from "react-redux";
+import { title, article } from "reducers/newPostReducer";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -41,6 +43,7 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
 const NewPost = () => {
+  const dispatch = useDispatch();
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   // @ts-ignore
@@ -61,7 +64,16 @@ const NewPost = () => {
   const initialValues = {
     title: "",
   };
-  const handleSubmit = () => {};
+
+  // @ts-ignore
+  const fullArticle = useSelector((state) => state.newPost);
+
+  const handleSubmit = (value) => {
+    dispatch(title(value.title));
+    const slateArticle = JSON.parse(localStorage.getItem("content"))
+    dispatch(article(slateArticle))
+    console.log(fullArticle);
+  };
   return (
     <div
       className={
@@ -82,62 +94,72 @@ const NewPost = () => {
             {" "}
             <Form>
               <div>
-                <Field type="text" name="title" id="exampleFormControlInput0" className={NewPostCSS.field} placeholder="enter your title here" />
-                <div className={NewPostCSS.error + " " + NewPostCSS.errorContainer}>
+                <Field
+                  type="text"
+                  name="title"
+                  id="exampleFormControlInput0"
+                  className={NewPostCSS.field}
+                  placeholder="enter your title here"
+                />
+                <div
+                  className={NewPostCSS.error + " " + NewPostCSS.errorContainer}
+                >
                   <ErrorMessage name="title" />
                 </div>
               </div>
-            </Form>
-          <Tags />
-            <Slate
-              editor={editor}
-              value={initialValue}
-              onChange={(value) => {
-                // Save the value to Local Storage.
-                const content = JSON.stringify(value);
-                localStorage.setItem("content", content);
-              }}
-            >
-              <Toolbar>
-                <MarkButton format="bold" icon="format_bold" />
-                <MarkButton format="italic" icon="format_italic" />
-                <MarkButton format="underline" icon="format_underlined" />
-                <MarkButton format="code" icon="code" />
-                <BlockButton format="heading-one" icon="looks_one" />
-                <BlockButton format="block-quote" icon="format_quote" />
-                <BlockButton
-                  format="numbered-list"
-                  icon="format_list_numbered"
-                />
-                <BlockButton
-                  format="bulleted-list"
-                  icon="format_list_bulleted"
-                />
-                <BlockButton format="left" icon="format_align_left" />
-                <BlockButton format="center" icon="format_align_center" />
-                <BlockButton format="right" icon="format_align_right" />
-                <BlockButton format="justify" icon="format_align_justify" />
-              </Toolbar>
-              <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                placeholder="Enter your article here"
-                spellCheck
-                onKeyDown={(event) => {
-                  for (const hotkey in HOTKEYS) {
-                    if (isHotkey(hotkey, event)) {
-                      event.preventDefault();
-                      const mark = HOTKEYS[hotkey];
-                      toggleMark(editor, mark);
-                    }
-                  }
+              <Tags />
+              <Slate
+                editor={editor}
+                value={initialValue}
+                onChange={(value) => {
+                  // Save the value to Local Storage.
+                  const content = JSON.stringify(value);
+                  localStorage.setItem("content", content);
                 }}
-              />
-            </Slate>
+              >
+                <Toolbar>
+                  <MarkButton format="bold" icon="format_bold" />
+                  <MarkButton format="italic" icon="format_italic" />
+                  <MarkButton format="underline" icon="format_underlined" />
+                  <MarkButton format="code" icon="code" />
+                  <BlockButton format="heading-one" icon="looks_one" />
+                  <BlockButton format="block-quote" icon="format_quote" />
+                  <BlockButton
+                    format="numbered-list"
+                    icon="format_list_numbered"
+                  />
+                  <BlockButton
+                    format="bulleted-list"
+                    icon="format_list_bulleted"
+                  />
+                  <BlockButton format="left" icon="format_align_left" />
+                  <BlockButton format="center" icon="format_align_center" />
+                  <BlockButton format="right" icon="format_align_right" />
+                  <BlockButton format="justify" icon="format_align_justify" />
+                </Toolbar>
+                <Editable
+                  renderElement={renderElement}
+                  renderLeaf={renderLeaf}
+                  placeholder="Enter your article here"
+                  spellCheck
+                  onKeyDown={(event) => {
+                    for (const hotkey in HOTKEYS) {
+                      if (isHotkey(hotkey, event)) {
+                        event.preventDefault();
+                        const mark = HOTKEYS[hotkey];
+                        toggleMark(editor, mark);
+                      }
+                    }
+                  }}
+                />
+              </Slate>{" "}
+              <button type="submit" className={NewPostCSS.button}>
+                publish
+              </button>
+            </Form>
           </div>
         </Formik>
       </div>
-      <button onClick={handleClick} className={NewPostCSS.button}>publish</button>
     </div>
   );
 };
