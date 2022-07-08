@@ -6,7 +6,7 @@ const admin = require("firebase-admin");
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
 const usersRouter = require("./controllers/usersRouter");
-const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-f81d57f0ea.json");
+const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
 
 require("dotenv").config();
 const app = express();
