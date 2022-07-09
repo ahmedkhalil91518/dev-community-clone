@@ -64,21 +64,22 @@ function SignupPage() {
   };
 
   useEffect(() => {
-    const effect = async () => {
-      const result = await getRedirectResult(auth);
-      const data = {
-        name: result.user.displayName,
-        email: result.user.email,
-        photo: result.user.photoURL,
-        uid: result.user.uid,
-        provider: result.user.providerData[0].providerId,
-      };
-      const socialReq = await socialLogin(data);
-      dispatch(authorizeUser(socialReq));
-      navigate("/");
-      dispatch(disableLoading());
-    };
-    effect().catch((error) => dispatch(disableLoading()));
+    getRedirectResult(auth)
+      .then((result) => {
+        const data = {
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+          uid: result.user.uid,
+          provider: result.user.providerData[0].providerId,
+        };
+        socialLogin(data).then((socialRes) => {
+          dispatch(authorizeUser(socialRes));
+          navigate("/");
+          dispatch(disableLoading());
+        });
+      })
+      .catch((error) => dispatch(disableLoading()));
   }, []);
   const validationSchema = Yup.object().shape({
     name: Yup.string()

@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
 import { disableLoading, enableLoading } from "reducers/loadingReducer";
+import { socialLogin } from "../../services/authService";
 
 function LoginPage() {
   const [error, setError] = useState("");
@@ -45,7 +46,7 @@ function LoginPage() {
   };
 
   const onSubmit = (values) => {
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((result) => {
         // Signed in
@@ -61,10 +62,10 @@ function LoginPage() {
         );
         console.log(user);
         navigate("/");
-        dispatch(disableLoading())
+        dispatch(disableLoading());
       })
       .catch((error) => {
-        dispatch(disableLoading())
+        dispatch(disableLoading());
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
@@ -78,7 +79,7 @@ function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     signInWithRedirect(auth, googleProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -92,7 +93,7 @@ function LoginPage() {
   };
 
   const handleGithubLogin = () => {
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     signInWithRedirect(auth, githubProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -106,20 +107,22 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    getRedirectResult(auth).then((result) => {
-      console.log(result);
-      dispatch(
-        authorizeUser({
+    getRedirectResult(auth)
+      .then((result) => {
+        const data = {
           name: result.user.displayName,
           email: result.user.email,
           photo: result.user.photoURL,
           uid: result.user.uid,
-          provider: result.user.providerData,
-        })
-      );
-      navigate("/");
-      dispatch(disableLoading());
-    }).catch(error => dispatch(disableLoading()));
+          provider: result.user.providerData[0].providerId,
+        };
+        socialLogin(data).then((socialRes) => {
+          dispatch(authorizeUser(socialRes));
+          navigate("/");
+          dispatch(disableLoading());
+        });
+      })
+      .catch((error) => dispatch(disableLoading()));
   }, []);
 
   return (

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   passwordHash: String || null,
   photo: String || null,
   uid: { type: String, required: true, unique: true },
-  providerId: String,
+  provider: String,
 });
 
 userSchema.set("toJSON", {
