@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   photo: String,
   uid: { type: String, required: true, unique: true },
   provider: String,
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
 userSchema.set("toJSON", {

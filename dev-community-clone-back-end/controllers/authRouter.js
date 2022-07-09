@@ -20,19 +20,19 @@ authRouter.post("/social", async (request, response, next) => {
       });
 
       const savedUser = await userInfo.save();
+
+      const userForToken = {
+        email: body.email,
+        uid: body.uid
+      };
+
+      const token = jwt.sign(userForToken, process.env.SECRET);
+      console.log(savedUser);
+      response.status(200).send({ token, ...savedUser._doc, ...savedUser.id });
     } catch (error) {
       next(error);
     }
   }
-
-  const userForToken = {
-    email: body.email,
-    uid: body.uid,
-  };
-
-  const token = jwt.sign(userForToken, process.env.SECRET);
-
-  response.status(200).send({ token, ...body });
 });
 
 authRouter.post("/signup", async (request, response, next) => {
@@ -63,7 +63,7 @@ authRouter.post("/signup", async (request, response, next) => {
 
       const token = jwt.sign(userForToken, process.env.SECRET);
 
-      response.status(200).send({ token, ...savedUser._doc });
+      response.status(200).send({ token, ...savedUser._doc, ...savedUser.id });
     } catch (error) {
       next(error);
     }
@@ -94,7 +94,7 @@ authRouter.post("/login", async (request, response, next) => {
 
   const token = jwt.sign(userForToken, process.env.SECRET);
 
-  response.status(200).send({ token, ...user._doc });
+  response.status(200).send({ token, ...user._doc, ...user.id });
 });
 
 module.exports = authRouter;

@@ -1,9 +1,40 @@
+const Post = require("../models/post");
+const Tag = require("../models/tag");
 const postsRouter = require("express").Router();
 
 postsRouter.post("/add", async (request, response, next) => {
   const body = request.body;
-  console.log(body);
-  response.send(request.body)
+
+  if (body) {
+    console.log(body);
+    let tagsArray = [];
+    if (body.tags) {
+      for (let i = 0; i < body.tags.length; i++) {
+        if (body.tags[i].__isNew__) {
+          const newTag = new Tag({
+            value: body.tags[i].value,
+            label: body.tags[i].label,
+          });
+          await newTag.save();
+          tagsArray.push(newTag._id);
+        }
+      }
+      console.log(body.id);
+      const post = new Post({
+        title: body.title,
+        coverPhoto: body.coverPhoto,
+        content: JSON.stringify(body.article),
+        tags: tagsArray,
+        author: body.id,
+      });
+      post.save(function (err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+    response.send(body);
+  }
 });
 
 module.exports = postsRouter;

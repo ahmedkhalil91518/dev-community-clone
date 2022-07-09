@@ -5,17 +5,13 @@ import { ActionMeta, OnChangeValue } from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { tags } from "reducers/newPostReducer";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
+const options = [];
 
 const Tags = () => {
   const dispatch = useDispatch();
 
   const handleChange = (newValue, actionMeta) => {
-    dispatch(tags(newValue))
+    dispatch(tags(newValue));
   };
   return (
     <div className={TagsCSS.selectContainer}>
