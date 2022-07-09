@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
-const usersRouter = require("./controllers/usersRouter");
+const authRouter = require("./controllers/authRouter")
 const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
 
 require("dotenv").config();
@@ -29,7 +29,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/users", usersRouter);
+app.use("/api/auth", authRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

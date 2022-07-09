@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
 import { disableLoading, enableLoading } from "reducers/loadingReducer";
+import { socialLogin } from "../../services/authService";
 
 function SignupPage() {
   const [error, setError] = useState("");
@@ -35,7 +36,7 @@ function SignupPage() {
   const githubProvider = new GithubAuthProvider();
 
   const handleGoogleSignup = () => {
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     signInWithRedirect(auth, googleProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -49,7 +50,7 @@ function SignupPage() {
   };
 
   const handleGithubSignup = () => {
-    dispatch(enableLoading())
+    dispatch(enableLoading());
     signInWithRedirect(auth, githubProvider).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -63,19 +64,21 @@ function SignupPage() {
   };
 
   useEffect(() => {
-    getRedirectResult(auth).then((result) => {
-      dispatch(
-        authorizeUser({
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
-          uid: result.user.uid,
-          provider: result.user.providerData,
-        })
-      );
+    const effect = async () => {
+      const result = await getRedirectResult(auth);
+      const data = {
+        name: result.user.displayName,
+        email: result.user.email,
+        photo: result.user.photoURL,
+        uid: result.user.uid,
+        provider: result.user.providerData[0].providerId,
+      };
+      const socialReq = await socialLogin(data);
+      dispatch(authorizeUser(socialReq));
       navigate("/");
       dispatch(disableLoading());
-    }).catch(error => dispatch(disableLoading()));
+    };
+    effect().catch((error) => dispatch(disableLoading()));
   }, []);
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -88,7 +91,7 @@ function SignupPage() {
   });
 
   const initialValues = {
-    name:"",
+    name: "",
     email: "",
     password: "",
   };
