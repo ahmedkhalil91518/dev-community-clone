@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import {
@@ -30,8 +30,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Tags from "../Tags/Tags";
 import { useDispatch, useSelector } from "react-redux";
-import { title, article } from "reducers/newPostReducer";
+import { title, article, remove } from "reducers/newPostReducer";
 import { addPost } from "services/postsService";
+import { useNavigate } from "react-router-dom";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -45,6 +46,7 @@ const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
 
 const NewPost = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   // @ts-ignore
@@ -66,14 +68,24 @@ const NewPost = () => {
   const fullArticle = useSelector((state) => state.newPost);
   // @ts-ignore
   const auth = useSelector((state) => state.auth);
+
   const handleSubmit = async (value) => {
     dispatch(title(value.title));
     const slateArticle = JSON.parse(localStorage.getItem("content"));
     dispatch(article(slateArticle));
     console.log(fullArticle);
-    const add = await addPost(fullArticle, auth.token);
+    const add = await addPost(
+      { ...fullArticle, title: value.title, article: slateArticle },
+      auth.token
+    );
     console.log(add);
+    navigate("/");
   };
+
+  useEffect(() => {
+    dispatch(remove());
+  }, []);
+
   return (
     <div
       className={

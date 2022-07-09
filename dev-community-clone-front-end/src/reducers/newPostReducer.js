@@ -22,10 +22,13 @@ const newPostSlice = createSlice({
       // @ts-ignore
       state.article = action.payload;
     },
+    remove(state, action) {
+      return {};
+    },
   },
 });
 
-export const { coverPicture, tags, article, title } = newPostSlice.actions;
+export const { coverPicture, tags, article, title, remove } = newPostSlice.actions;
 
 export const initializeNotes = () => {
   return async (dispatch) => {

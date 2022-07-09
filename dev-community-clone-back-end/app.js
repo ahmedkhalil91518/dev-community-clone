@@ -5,11 +5,11 @@ const admin = require("firebase-admin");
 
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
-const authRouter = require("./controllers/authRouter")
+const authRouter = require("./controllers/authRouter");
 const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
-const postsRouter = require("./controllers/postsRouter")
-const tokenExtractor = require("./middlewares/tokenExtractor")
-const userExtractor = require("./middlewares/userExtractor")
+const postsRouter = require("./controllers/postsRouter");
+const tokenExtractor = require("./middlewares/tokenExtractor");
+const userExtractor = require("./middlewares/userExtractor");
 
 require("dotenv").config();
 const app = express();
@@ -29,8 +29,8 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({  limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/posts", [tokenExtractor, userExtractor], postsRouter);
