@@ -8,7 +8,7 @@ const userExtractor = async (request, response, next) => {
     if (!request.token || !decodedToken.id) {
       return response.status(401).json({ error: "token missing or invalid" });
     }
-    const user = await User.findOne({ email: request.body.email });
+    const user = await User.findById(decodedToken.id)
     request.user = user;
     next();
   } catch (error) {
