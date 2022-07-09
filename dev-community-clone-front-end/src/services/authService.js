@@ -13,3 +13,9 @@ export const passwordSignup = async (data) => {
     console.log(response.data);
     return response.data;
 };
+
+export const passwordLogin = async (data) => {
+    const response = await axios.post(baseUrl + "/login", data);
+    console.log(response.data);
+    return response.data;
+};

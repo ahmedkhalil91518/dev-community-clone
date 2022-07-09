@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   name: String,
-  passwordHash: String || null,
-  photo: String || null,
+  passwordHash: String,
+  photo: String,
   uid: { type: String, required: true, unique: true },
   provider: String,
 });

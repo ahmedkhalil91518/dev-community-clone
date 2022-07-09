@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
 import { disableLoading, enableLoading } from "reducers/loadingReducer";
-import { socialLogin } from "../../services/authService";
+import { socialLogin, passwordLogin } from "../../services/authService";
 
 function LoginPage() {
   const [error, setError] = useState("");
@@ -50,19 +50,14 @@ function LoginPage() {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((result) => {
         // Signed in
-        const user = result.user;
-        dispatch(
-          authorizeUser({
-            name: result.user.displayName,
-            email: result.user.email,
-            photo: result.user.photoURL,
-            uid: result.user.uid,
-            provider: result.user.providerData,
-          })
+        console.log(values);
+        passwordLogin({ email: values.email, password: values.password }).then(
+          (res) => {
+            dispatch(authorizeUser(res));
+            navigate("/");
+            dispatch(disableLoading());
+          }
         );
-        console.log(user);
-        navigate("/");
-        dispatch(disableLoading());
       })
       .catch((error) => {
         dispatch(disableLoading());

@@ -104,7 +104,6 @@ function SignupPage() {
       .then((result) => {
         // Signed in
         const user = result.user;
-        console.log(user);
         updateProfile(auth.currentUser, {
           displayName: values.name,
         }).then(() => {
@@ -114,6 +113,7 @@ function SignupPage() {
             photo: null,
             uid: result.user.uid,
             provider: result.user.providerData[0].providerId,
+            password: values.password
           }).then((res) => {
             console.log(res);
             dispatch(authorizeUser(res));
