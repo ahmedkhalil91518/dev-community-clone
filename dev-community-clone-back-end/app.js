@@ -7,6 +7,9 @@ const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
 const authRouter = require("./controllers/authRouter")
 const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
+const postsRouter = require("./controllers/postsRouter")
+const tokenExtractor = require("./middlewares/tokenExtractor")
+const userExtractor = require("./middlewares/userExtractor")
 
 require("dotenv").config();
 const app = express();
@@ -30,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRouter);
+app.use("/api/posts", [tokenExtractor, userExtractor], postsRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

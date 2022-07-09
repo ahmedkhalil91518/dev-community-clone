@@ -31,6 +31,7 @@ import * as Yup from "yup";
 import Tags from "../Tags/Tags";
 import { useDispatch, useSelector } from "react-redux";
 import { title, article } from "reducers/newPostReducer";
+import { addPost } from "services/postsService";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -50,7 +51,7 @@ const NewPost = () => {
   const [editor] = useState(withReact(createEditor()));
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
- 
+
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .min(10, "the minimum characters for the title is 10")
@@ -63,12 +64,15 @@ const NewPost = () => {
 
   // @ts-ignore
   const fullArticle = useSelector((state) => state.newPost);
-
-  const handleSubmit = (value) => {
+  // @ts-ignore
+  const auth = useSelector((state) => state.auth);
+  const handleSubmit = async (value) => {
     dispatch(title(value.title));
-    const slateArticle = JSON.parse(localStorage.getItem("content"))
-    dispatch(article(slateArticle))
+    const slateArticle = JSON.parse(localStorage.getItem("content"));
+    dispatch(article(slateArticle));
     console.log(fullArticle);
+    const add = await addPost(fullArticle, auth.token);
+    console.log(add);
   };
   return (
     <div
