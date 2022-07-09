@@ -7,3 +7,9 @@ export const socialLogin = async (data) => {
     console.log(response.data);
     return response.data;
 };
+
+export const passwordSignup = async (data) => {
+    const response = await axios.post(baseUrl + "/signup", data);
+    console.log(response.data);
+    return response.data;
+};

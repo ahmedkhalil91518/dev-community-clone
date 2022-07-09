@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authorizeUser } from "../../reducers/authReducer";
 import { disableLoading, enableLoading } from "reducers/loadingReducer";
-import { socialLogin } from "../../services/authService";
+import { socialLogin, passwordSignup } from "../../services/authService";
 
 function SignupPage() {
   const [error, setError] = useState("");
@@ -108,20 +108,21 @@ function SignupPage() {
         updateProfile(auth.currentUser, {
           displayName: values.name,
         }).then(() => {
-          dispatch(
-            authorizeUser({
-              name: values.name,
-              email: result.user.email,
-              photo: null,
-              uid: result.user.uid,
-              provider: result.user.providerData,
-            })
-          );
-          navigate("/");
-          dispatch(disableLoading());
-          sendEmailVerification(auth.currentUser).then(() => {
-            // Email verification sent!
-            console.log(auth.currentUser);
+          passwordSignup({
+            name: values.name,
+            email: result.user.email,
+            photo: null,
+            uid: result.user.uid,
+            provider: result.user.providerData[0].providerId,
+          }).then((res) => {
+            console.log(res);
+            dispatch(authorizeUser(res));
+            navigate("/");
+            dispatch(disableLoading());
+            sendEmailVerification(auth.currentUser).then(() => {
+              // Email verification sent!
+              console.log(auth.currentUser);
+            });
           });
         });
       })
