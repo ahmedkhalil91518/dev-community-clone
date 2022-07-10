@@ -2,14 +2,18 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 const userExtractor = async (request, response, next) => {
-  console.log("user");
+  
   try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
-    if (!request.token || !decodedToken.id) {
+    if (!request.token || !decodedToken.email) {
+      console.log(request.token);
+      console.log(decodedToken);
       return response.status(401).json({ error: "token missing or invalid" });
     }
-    const user = await User.findById(decodedToken.id)
+    console.log("user2");
+    const user = await User.findOne({email:decodedToken.email})
     request.user = user;
+    
     next();
   } catch (error) {
     next(error);

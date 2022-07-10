@@ -10,6 +10,7 @@ const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e
 const postsRouter = require("./controllers/postsRouter");
 const tokenExtractor = require("./middlewares/tokenExtractor");
 const userExtractor = require("./middlewares/userExtractor");
+const viewPostsRouter = require("./controllers/viewPostsRouter");
 
 require("dotenv").config();
 const app = express();
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use("/api/auth", authRouter);
 app.use("/api/posts", [tokenExtractor, userExtractor], postsRouter);
+app.use("/api/viewPosts", viewPostsRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);

@@ -34,9 +34,6 @@ postsRouter.post("/", async (request, response, next) => {
   response.send(body);
 });
 
-postsRouter.get("/",async (request, response, next) => {
-  const posts = await Post.find({}).populate("author").populate("tags");
-  response.send(posts)
-})
+
 
 module.exports = postsRouter;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ImageMenuCSS from "./ImageMenu.module.css";
 import { useSelector } from "react-redux";
 import Menu from "@mui/material/Menu";
@@ -28,6 +28,9 @@ const ImageMenu = () => {
     // @ts-ignore
     return state.auth;
   });
+  useEffect(() => {
+    console.log(user);
+  },[])
   const emailName = user.email.split("@")[0];
   return (
     <div>
@@ -71,7 +74,10 @@ const ImageMenu = () => {
           </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-        <Link to="newPost" className={ImageMenuCSS.link}>Create Post</Link></MenuItem>
+          <Link to="newPost" className={ImageMenuCSS.link}>
+            Create Post
+          </Link>
+        </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>

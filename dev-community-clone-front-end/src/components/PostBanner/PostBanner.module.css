@@ -1,0 +1,9 @@
+.coverPhoto {
+  height: 250px !important;
+  object-fit: cover;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}

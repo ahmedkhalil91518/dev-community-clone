@@ -8,7 +8,7 @@ authRouter.post("/social", async (request, response, next) => {
   console.log(body);
 
   const user = await User.findOne({ email: body.email });
-
+  console.log(user);
   if (!user) {
     try {
       const userInfo = new User({
@@ -23,7 +23,7 @@ authRouter.post("/social", async (request, response, next) => {
 
       const userForToken = {
         email: body.email,
-        uid: body.uid
+        uid: body.uid,
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET);
@@ -32,6 +32,15 @@ authRouter.post("/social", async (request, response, next) => {
     } catch (error) {
       next(error);
     }
+  } else {
+    const userForToken = {
+      email: body.email,
+      uid: body.uid,
+    };
+
+    const token = jwt.sign(userForToken, process.env.SECRET);
+    console.log(user);
+    response.status(200).send({ token, ...user._doc });
   }
 });
 

@@ -8,11 +8,3 @@ export const addPost = async (newObject, token) => {
   const response = await axios.post(baseUrl, newObject, config);
   return response.data;
 };
-
-export const showAllPosts = async (token) => {
-  const config = {
-    headers: { Authorization: `bearer ${token}` },
-  };
-  const response = await axios.get(baseUrl, config);
-  return response.data;
-};
