@@ -7,3 +7,24 @@
   flex-direction: column;
   margin: 10px;
 }
+.authorPhoto {
+  border-radius: 50%;
+  width: 50px;
+  margin-right: 10px;
+}
+.authorSection {
+  display: flex;
+  flex-direction: row;
+}
+.wrap {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.tag {
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin-right:10px;
+}
+.comments {
+  margin: 5px 0;
+}

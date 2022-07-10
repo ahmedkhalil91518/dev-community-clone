@@ -22,17 +22,20 @@ export const PostBanner = ({ post }) => {
       )}
       <CardContent>
         {post.author && (
-          <div>
-            <img src={post.author.photo} alt="author" />
+          <div className={PostBannerCSS.authorSection}>
+            <img src={post.author.photo} alt="author"  className={PostBannerCSS.authorPhoto}/>
+            <div><div>{post.author.name}</div><div>{post.created_at.split("T")[0]}</div></div>
           </div>
         )}
-        <Typography gutterBottom variant="h4" component="div">
+        <Typography gutterBottom variant="h4" component="div" className={PostBannerCSS.wrap} >
           {post.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
+        <div>
+          {post.tags.map((tag) => {
+            return <span className={PostBannerCSS.tag}>#{tag.value}</span>
+          })}
+        </div>
+        <div  className={PostBannerCSS.comments}><div>{post.comments.length} comments</div></div>
       </CardContent>
     </Card>
   );
