@@ -30,11 +30,4 @@ const newPostSlice = createSlice({
 
 export const { coverPicture, tags, article, title, remove } = newPostSlice.actions;
 
-export const initializeNotes = () => {
-  return async (dispatch) => {
-    /*  const notes = await noteService.getAll();
-      dispatch(setNotes(notes)); */
-  };
-};
-
 export default newPostSlice.reducer;

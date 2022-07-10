@@ -20,11 +20,13 @@ import {
 } from "redux-persist";
 import loadingReducer from "reducers/loadingReducer";
 import newPostReducer from "reducers/newPostReducer";
+import showPostsReducer from "reducers/showPostsReducer";
 
 const reducers = combineReducers({
   auth: authReducer,
   loading: loadingReducer, 
-  newPost: newPostReducer
+  newPost: newPostReducer,
+  showPosts:showPostsReducer
 });
 
 const persistConfig = {

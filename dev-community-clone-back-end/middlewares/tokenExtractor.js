@@ -16,6 +16,7 @@ const tokenExtractor = (request, response, next) => {
     } else {
       response.status(401).json({ error: "token missing or invalid" });
     }
+    console.log(token);
   } catch (error) {
     next(error);
   }

@@ -13,6 +13,6 @@ export const showAllPosts = async (token) => {
   const config = {
     headers: { Authorization: `bearer ${token}` },
   };
-  const response = await axios.post(baseUrl, config);
+  const response = await axios.get(baseUrl, config);
   return response.data;
 };
