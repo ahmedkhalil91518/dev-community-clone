@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 export const PostBanner = ({ post }) => {
   return (
     <Card>
-      {post.coverPhoto && (
+      {post.coverPicture && (
         <CardMedia
           component="img"
           alt="green iguana"

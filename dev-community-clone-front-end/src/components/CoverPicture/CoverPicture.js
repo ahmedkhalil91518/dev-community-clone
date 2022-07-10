@@ -16,7 +16,6 @@ import Box from "@mui/material/Box";
 
 export function CoverPicture() {
   const [image, setImage] = useState([]);
-  const [upImage, setUpImage] = useState("");
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const maxNumber = 1;
@@ -30,7 +29,6 @@ export function CoverPicture() {
   const onChange = (uploadImage) => {
     setImage(uploadImage);
     upload(uploadImage[0].file);
-    dispatch(coverPicture(upImage));
   };
   const configuredStorage = getStorage(app);
   const upload = (file) => {
@@ -53,8 +51,7 @@ export function CoverPicture() {
       },
       () => {
         const durl = getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setUpImage(url);
-          setProgress(100);
+          dispatch(coverPicture(url));
         });
       }
     );

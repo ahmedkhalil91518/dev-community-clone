@@ -18,15 +18,13 @@ postsRouter.post("/", async (request, response, next) => {
       }
     }
   }
-  console.log("hi2");
   const post = new Post({
     title: body.title,
-    coverPhoto: body.coverPhoto,
+    coverPicture: body.coverPicture,
     content: JSON.stringify(body.article),
     tags: tagsArray,
     author: request.user._id,
   });
-  console.log("hi");
   post.save(function (err) {
     if (err) {
       console.log(err);
@@ -38,7 +36,6 @@ postsRouter.post("/", async (request, response, next) => {
 
 postsRouter.get("/",async (request, response, next) => {
   const posts = await Post.find({}).populate("author").populate("tags");
-  console.log(posts);
   response.send(posts)
 })
 
