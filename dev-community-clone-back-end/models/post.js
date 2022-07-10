@@ -12,9 +12,10 @@ const postSchema = new mongoose.Schema(
         ref: "Tag",
       },
     ],
-    likes: { type: Number, default: 0 },
     author: { type: Schema.Types.ObjectId, ref: "User" },
-    ratings: [],
+    ratings: [
+      { creator: { type: Schema.Types.ObjectId, ref: "User" }, rating: Number },
+    ],
     comments: [],
   },
   {

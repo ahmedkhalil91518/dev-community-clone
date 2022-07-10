@@ -22,8 +22,7 @@ authRouter.post("/social", async (request, response, next) => {
       const savedUser = await userInfo.save();
 
       const userForToken = {
-        email: body.email,
-        uid: body.uid,
+        id: savedUser._id,
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET);
@@ -66,8 +65,7 @@ authRouter.post("/signup", async (request, response, next) => {
 
       const savedUser = await userInfo.save();
       const userForToken = {
-        email: body.email,
-        uid: body.uid,
+        id: savedUser._id,
       };
 
       const token = jwt.sign(userForToken, process.env.SECRET);
@@ -97,7 +95,6 @@ authRouter.post("/login", async (request, response, next) => {
   }
 
   const userForToken = {
-    username: user.username,
     id: user._id,
   };
 
