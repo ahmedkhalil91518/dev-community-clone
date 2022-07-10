@@ -23,7 +23,7 @@ export const PostBanner = ({ post }) => {
       <CardContent>
         {post.author && (
           <div className={PostBannerCSS.authorSection}>
-            <img src={post.author.photo} alt="author"  className={PostBannerCSS.authorPhoto}/>
+            <img src={post.author.photo || "https://via.placeholder.com/500"} alt="author"  className={PostBannerCSS.authorPhoto}/>
             <div><div>{post.author.name}</div><div>{post.created_at.split("T")[0]}</div></div>
           </div>
         )}
