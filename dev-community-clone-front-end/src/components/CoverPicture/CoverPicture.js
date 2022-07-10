@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageUploading from "react-images-uploading";
 import CoverPictureCSS from "./CoverPicture.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { coverPicture } from "reducers/newPostReducer";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { app } from "../../firebase";
+import CircularProgress from "@mui/material/CircularProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export function CoverPicture() {
-  const [image, setImage] = React.useState([]);
-  const [progress, setProgress] = React.useState(0);
+  const [image, setImage] = useState([]);
+  const [upImage, setUpImage] = useState("");
+  const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
   const maxNumber = 1;
-  // @ts-ignore
-  const persistedImage = useSelector((state) => state.newPost);
   const user = useSelector((state) => {
     // @ts-ignore
     return state.auth;
@@ -21,12 +28,9 @@ export function CoverPicture() {
   // @ts-ignore
   const auth = useSelector((state) => state.auth);
   const onChange = (uploadImage) => {
-    // data for submit
-    console.log(user);
     setImage(uploadImage);
-    dispatch(coverPicture(JSON.stringify(uploadImage)));
-    console.log(uploadImage);
-    upload(uploadImage[0].file)
+    upload(uploadImage[0].file);
+    dispatch(coverPicture(upImage));
   };
   const configuredStorage = getStorage(app);
   const upload = (file) => {
@@ -46,18 +50,18 @@ export function CoverPicture() {
       },
       (err) => {
         console.log(err);
-      }, () => {
-        const durl = getDownloadURL(uploadTask.snapshot.ref).then(url => {
-          console.log(url);
-        })
-        
+      },
+      () => {
+        const durl = getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setUpImage(url);
+          setProgress(100);
+        });
       }
     );
   };
 
   return (
     <div>
-      <h1>uploaded {progress} %</h1>
       <ImageUploading
         value={image}
         onChange={onChange}
@@ -108,6 +112,36 @@ export function CoverPicture() {
                   >
                     Remove
                   </button>
+                  {progress !== 0 && (
+                    <div className={CoverPictureCSS.progress}>
+                      <CircularProgress
+                        variant="determinate"
+                        value={progress}
+                        color="inherit"
+                        size={"70px"}
+                      />
+                      <Box
+                        sx={{
+                          top: 0,
+                          left: 0,
+                          bottom: 0,
+                          right: 0,
+                          position: "absolute",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Typography
+                          variant="caption"
+                          component="div"
+                          color="text.secondary"
+                        >
+                          {`${Math.round(progress)}%`}
+                        </Typography>
+                      </Box>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

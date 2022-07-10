@@ -38,3 +38,8 @@
   text-decoration: underline !important;
   text-decoration-color: white !important;
 }
+.progress {
+  position: relative;
+  margin: 10px auto;
+  display: block;
+}
