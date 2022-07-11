@@ -11,6 +11,7 @@ const postsRouter = require("./controllers/postsRouter");
 const tokenExtractor = require("./middlewares/tokenExtractor");
 const userExtractor = require("./middlewares/userExtractor");
 const viewPostsRouter = require("./controllers/viewPostsRouter");
+const tagsRouter = require("./controllers/tagsRouter");
 
 require("dotenv").config();
 const app = express();
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use("/api/auth", authRouter);
 app.use("/api/posts", [tokenExtractor, userExtractor], postsRouter);
 app.use("/api/viewPosts", viewPostsRouter);
+app.use("/api/tags",tagsRouter)
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
