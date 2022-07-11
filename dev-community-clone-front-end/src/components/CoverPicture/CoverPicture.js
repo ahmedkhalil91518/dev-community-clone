@@ -104,7 +104,9 @@ export function CoverPicture() {
                     Update
                   </button>
                   <button
-                    onClick={() => onImageRemove(index)}
+                    onClick={() =>{
+                      dispatch(coverPicture(null));
+                      onImageRemove(index)}}
                     className={CoverPictureCSS.button}
                   >
                     Remove

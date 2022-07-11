@@ -60,26 +60,31 @@ const NewPost = () => {
       .required("Required"),
   });
 
-  const initialValues = {
-    title: "",
-  };
+
 
   // @ts-ignore
   const fullArticle = useSelector((state) => state.newPost);
   // @ts-ignore
   const auth = useSelector((state) => state.auth);
 
+  const initialValues = {
+    title: fullArticle.title || "",
+  };
   const handleSubmit = async (value) => {
     dispatch(title(value.title));
     const slateArticle = JSON.parse(localStorage.getItem("content"));
     dispatch(article(slateArticle));
     console.log(fullArticle);
-    const add = await addPost(
+    addPost(
       { ...fullArticle, title: value.title, article: slateArticle },
       auth.token
-    );
-    console.log(add);
-    navigate("/");
+    ).then((result) => {
+      localStorage.removeItem("content")
+      dispatch(remove())
+      console.log(result);
+      navigate("/");
+    })
+
   };
 
   useEffect(() => {
@@ -101,9 +106,9 @@ const NewPost = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          
         >
-          <div>
-            {" "}
+            {({ errors, touched, setFieldValue }) => (
             <Form>
               <div>
                 <Field
@@ -112,6 +117,11 @@ const NewPost = () => {
                   id="exampleFormControlInput0"
                   className={NewPostCSS.field}
                   placeholder="enter your title here"
+                  onChange={(e) => {
+                    setFieldValue("title", e.target.value);
+                    dispatch(title(e.target.value))
+
+                  }}
                 />
                 <div
                   className={NewPostCSS.error + " " + NewPostCSS.errorContainer}
@@ -122,7 +132,7 @@ const NewPost = () => {
               <Tags />
               <Slate
                 editor={editor}
-                value={initialValue}
+                value={JSON.parse(localStorage.getItem("content")) || initialValue}
                 onChange={(value) => {
                   // Save the value to Local Storage.
                   const content = JSON.stringify(value);
@@ -168,8 +178,7 @@ const NewPost = () => {
               <button type="submit" className={NewPostCSS.button}>
                 publish
               </button>
-            </Form>
-          </div>
+            </Form>)}
         </Formik>
       </div>
     </div>

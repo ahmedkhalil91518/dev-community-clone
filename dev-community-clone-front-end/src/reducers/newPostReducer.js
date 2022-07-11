@@ -23,11 +23,12 @@ const newPostSlice = createSlice({
       state.article = action.payload;
     },
     remove(state, action) {
-      return {};
+      return initialState;
     },
   },
 });
 
-export const { coverPicture, tags, article, title, remove } = newPostSlice.actions;
+export const { coverPicture, tags, article, title, remove } =
+  newPostSlice.actions;
 
 export default newPostSlice.reducer;

@@ -33,13 +33,12 @@ authRouter.post("/social", async (request, response, next) => {
     }
   } else {
     const userForToken = {
-      email: body.email,
-      uid: body.uid,
+      id: user._id,
     };
 
     const token = jwt.sign(userForToken, process.env.SECRET);
     console.log(user);
-    response.status(200).send({ token, ...user._doc });
+    response.status(200).send({ token, ...user._doc , ...user.id });
   }
 });
 
