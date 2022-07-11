@@ -1,18 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import RelativeCSS from "./Relative.module.css";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getRelative } from "reducers/showPostsReducer";
 import { PostBanner } from "components/PostBanner/PostBanner";
+import { showAllPosts } from "services/viewPostsService";
 const Relative = () => {
-  const dispatch = useDispatch();
-  // @ts-ignore
-  const posts = useSelector((state) => state.showPosts);
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    console.log(posts);
-      // @ts-ignore
-      dispatch(getRelative());
+    showAllPosts().then(fetchedPosts => {
+      setPosts(fetchedPosts)
+    })
   }, []);
 
   return (
