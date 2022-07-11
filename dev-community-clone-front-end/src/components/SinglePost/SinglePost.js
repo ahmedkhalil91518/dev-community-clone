@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SinglePostCSS from "./SinglePost.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { showSinglePost } from "services/viewPostsService";
 import { Slate, Editable, withReact } from "slate-react";
 import { createEditor } from "slate";
@@ -45,7 +45,11 @@ export const SinglePost = () => {
           <h1 className={SinglePostCSS.title}>{post.title}</h1>
           <div className={SinglePostCSS.tagsContainer}>
             {post.tags.map((tag) => {
-              return <span className={SinglePostCSS.tag}>#{tag.value}</span>;
+              return (
+                <Link to={`/tags/${tag.value}`} key={tag.value}>
+                  <span className={SinglePostCSS.tag}>#{tag.value}</span>
+                </Link>
+              );
             })}
           </div>
           {JSON.parse(post.content) && (
