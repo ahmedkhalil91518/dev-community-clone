@@ -15,6 +15,7 @@
 .authorSection {
   display: flex;
   flex-direction: row;
+  margin: 20px 0;
 }
 .wrap {
   overflow-wrap: break-word;
@@ -25,8 +26,11 @@
 .tag {
   overflow-wrap: break-word;
   hyphens: auto;
-  margin-right:10px;
+  margin-right: 10px;
 }
 .comments {
   margin: 5px 0;
+}
+.tags {
+  margin: 20px 0;
 }
