@@ -47,7 +47,7 @@ export const PostBanner = ({ post }) => {
         </Link>
         <div className={PostBannerCSS.tags}>
           {post.tags.map((tag) => {
-            return <span className={PostBannerCSS.tag}>#{tag.value}</span>;
+            return <Link to={`/tags/${tag.value}`} key={tag.value}> <span className={PostBannerCSS.tag}>#{tag.value}</span></Link>;
           })}
         </div>
         <div className={PostBannerCSS.comments}>

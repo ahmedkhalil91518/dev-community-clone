@@ -7,6 +7,11 @@ export const showAllPosts = async () => {
 };
 
 export const showSinglePost = async (id) => {
-  const response = await axios.get(baseUrl + "/" + id);
+  const response = await axios.get(baseUrl + "/post/" + id);
+  return response.data;
+};
+
+export const showTagPosts = async (tag) => {
+  const response = await axios.get(baseUrl + "/tag/" + tag);
   return response.data;
 };

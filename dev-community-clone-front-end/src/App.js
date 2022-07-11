@@ -27,6 +27,7 @@ import NewPost from "components/NewPost/NewPost";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { SinglePost } from "components/SinglePost/SinglePost";
+import { TagPosts } from "components/TagPosts/TagPosts";
 
 library.add(fab);
 
@@ -105,6 +106,7 @@ function App() {
           }
         />
         <Route path="/posts/:id" element={<SinglePost />} />
+        <Route path="/tags/:tag" element={<TagPosts />} />
       </Routes>
       <Footer />
     </>

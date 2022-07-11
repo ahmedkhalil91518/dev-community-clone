@@ -43,12 +43,16 @@ export const SinglePost = () => {
             </div>
           )}
           <h1 className={SinglePostCSS.title}>{post.title}</h1>
-          <div className={SinglePostCSS.tagsContainer}>{post.tags.map(tag => {
-            return <span className={SinglePostCSS.tag}>#{tag.value}</span>
-          })}</div>
-          <Slate editor={editor} value={JSON.parse(post.content)}>
-            <Editable readOnly />
-          </Slate>
+          <div className={SinglePostCSS.tagsContainer}>
+            {post.tags.map((tag) => {
+              return <span className={SinglePostCSS.tag}>#{tag.value}</span>;
+            })}
+          </div>
+          {JSON.parse(post.content) && (
+            <Slate editor={editor} value={JSON.parse(post.content)}>
+              <Editable readOnly />
+            </Slate>
+          )}
         </div>
       </div>
     );
