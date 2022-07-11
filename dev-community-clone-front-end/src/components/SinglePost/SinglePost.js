@@ -20,9 +20,37 @@ export const SinglePost = () => {
   }, []);
   if (post) {
     return (
-      <Slate editor={editor} value={JSON.parse(post.content)}>
-        <Editable readOnly />
-      </Slate>
+      <div className={SinglePostCSS.container}>
+        {post.coverPicture && (
+          <img
+            src={post.coverPicture}
+            alt="cover"
+            className={SinglePostCSS.cover}
+          />
+        )}
+        <div className={SinglePostCSS.subContainer}>
+          {post.author && (
+            <div className={SinglePostCSS.authorSection}>
+              <img
+                src={post.author.photo || "https://via.placeholder.com/500"}
+                alt="author"
+                className={SinglePostCSS.authorPhoto}
+              />
+              <div>
+                <div className={SinglePostCSS.author}>{post.author.name}</div>
+                <div>posted at {post.created_at.split("T")[0]}</div>
+              </div>
+            </div>
+          )}
+          <h1 className={SinglePostCSS.title}>{post.title}</h1>
+          <div className={SinglePostCSS.tagsContainer}>{post.tags.map(tag => {
+            return <span className={SinglePostCSS.tag}>#{tag.value}</span>
+          })}</div>
+          <Slate editor={editor} value={JSON.parse(post.content)}>
+            <Editable readOnly />
+          </Slate>
+        </div>
+      </div>
     );
   } else {
     return null;
