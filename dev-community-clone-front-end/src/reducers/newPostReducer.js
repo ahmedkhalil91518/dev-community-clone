@@ -25,10 +25,14 @@ const newPostSlice = createSlice({
     remove(state, action) {
       return initialState;
     },
+    removeCoverPhoto(state, action) {
+      // @ts-ignore
+      state.coverPicture = null
+    },
   },
 });
 
-export const { coverPicture, tags, article, title, remove } =
+export const { coverPicture, tags, article, title, remove, removeCoverPhoto } =
   newPostSlice.actions;
 
 export default newPostSlice.reducer;

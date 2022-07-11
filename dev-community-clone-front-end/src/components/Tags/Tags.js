@@ -13,15 +13,22 @@ const Tags = () => {
     dispatch(tags(newValue));
   };
 
+  // @ts-ignore
+  const oldTags = useSelector((state) => state.newPost.tags);
+    // @ts-ignore
+  const data = useSelector((state) => state.newPost);
   useEffect(() => {
     showAllTags().then((fetchedTags) => {
       setAllTags(fetchedTags);
     });
+    console.log(oldTags);
+    console.log(data);
   }, []);
 
   return (
     <div className={TagsCSS.selectContainer}>
       <CreatableSelect
+        defaultValue={oldTags}
         isMulti
         onChange={handleChange}
         options={allTags}

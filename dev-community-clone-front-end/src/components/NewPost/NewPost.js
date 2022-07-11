@@ -30,7 +30,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Tags from "../Tags/Tags";
 import { useDispatch, useSelector } from "react-redux";
-import { title, article, remove } from "reducers/newPostReducer";
+import { title, article, remove , removeCoverPhoto} from "reducers/newPostReducer";
 import { addPost } from "services/postsService";
 import { useNavigate } from "react-router-dom";
 
@@ -88,7 +88,7 @@ const NewPost = () => {
   };
 
   useEffect(() => {
-    dispatch(remove());
+    dispatch(removeCoverPhoto());
   }, []);
 
   return (
@@ -98,6 +98,7 @@ const NewPost = () => {
       }
     >
       <h1>Create a Post</h1>
+      <h3>note that the title, the tags and the post gets saved in redux-persist localstorage but not the cover photo</h3>
       <div className={NewPostCSS.subContainer}>
         <CoverPicture />
       </div>
@@ -421,3 +422,7 @@ const initialValue = [
 ];
 
 export default NewPost;
+function removePhoto() {
+  throw new Error("Function not implemented.");
+}
+
