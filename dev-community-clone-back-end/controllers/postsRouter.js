@@ -15,6 +15,8 @@ postsRouter.post("/", async (request, response, next) => {
         });
         await newTag.save();
         tagsArray.push(newTag._id);
+      } else {
+        tagsArray.push(body.tags[i]._id);
       }
     }
   }
@@ -33,7 +35,5 @@ postsRouter.post("/", async (request, response, next) => {
 
   response.send(body);
 });
-
-
 
 module.exports = postsRouter;
