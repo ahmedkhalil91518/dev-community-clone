@@ -24,10 +24,11 @@ import NotRequiredAuth from "components/NotRequiredAuth";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useSelector } from "react-redux";
 import NewPost from "components/NewPost/NewPost";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { SinglePost } from "components/SinglePost/SinglePost";
 
-library.add(fab)
+library.add(fab);
 
 function App() {
   // @ts-ignore
@@ -103,6 +104,7 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route path="/posts/:id" element={<SinglePost />} />
       </Routes>
       <Footer />
     </>

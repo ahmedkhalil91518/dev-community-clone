@@ -19,6 +19,8 @@
 .wrap {
   overflow-wrap: break-word;
   hyphens: auto;
+  color: black;
+  text-decoration: none !important;
 }
 .tag {
   overflow-wrap: break-word;

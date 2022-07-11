@@ -6,4 +6,9 @@ viewPostsRouter.get("/",async (request, response, next) => {
     response.send(posts)
   })
   
+  viewPostsRouter.get("/:id",async (request, response, next) => {
+    const post = await Post.find({_id: request.params.id}).populate("author").populate("tags");
+    response.send(post)
+  })
+
   module.exports = viewPostsRouter;
