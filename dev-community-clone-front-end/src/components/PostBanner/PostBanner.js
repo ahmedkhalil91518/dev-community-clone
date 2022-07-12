@@ -7,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 export const PostBanner = ({ post }) => {
-  useEffect(() => {
-    console.log(post);
-  }, []);
+
 
   return (
     <Card className={PostBannerCSS.card}>
