@@ -6,7 +6,7 @@ const admin = require("firebase-admin");
 const unknownEndpoint = require("./middlewares/unknownEndpoint");
 const errorHandler = require("./middlewares/errorHandler");
 const authRouter = require("./controllers/authRouter");
-const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
+// const serviceAccount = require("./dev-community-clone-firebase-adminsdk-fx6ls-2e5cc4e794.json");
 const postsRouter = require("./controllers/postsRouter");
 const tokenExtractor = require("./middlewares/tokenExtractor");
 const userExtractor = require("./middlewares/userExtractor");
@@ -18,9 +18,9 @@ const app = express();
 const port = process.env.PORT;
 app.use(cors());
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING)
