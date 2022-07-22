@@ -214,7 +214,7 @@ function SignupPage() {
             </div>
             {error && <div className={SignupPageCSS.ErrorMessage}>{error}</div>}
             <button
-              className={SignupPageCSS.loginButton + " btn btn-primary"}
+              className={SignupPageCSS.loginButton}
               type="submit"
             >
               submit

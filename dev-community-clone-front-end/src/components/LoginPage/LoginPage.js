@@ -148,13 +148,13 @@ function LoginPage() {
           <Form>
             <label
               htmlFor="exampleFormControlInput1"
-              className={LoginPageCSS.label + " form-label"}
+              className={LoginPageCSS.label}
             >
               Email address
             </label>
             <Field
               type="email"
-              className={LoginPageCSS.input + " form-control"}
+              className={LoginPageCSS.input}
               id="exampleFormControlInput1"
               name="email"
             />
@@ -163,13 +163,13 @@ function LoginPage() {
             </div>
             <label
               htmlFor="exampleFormControlInput2"
-              className={LoginPageCSS.label + " form-label"}
+              className={LoginPageCSS.label}
             >
               Password
             </label>
             <Field
               type="password"
-              className={LoginPageCSS.input + " form-control"}
+              className={LoginPageCSS.input}
               id="exampleFormControlInput2"
               name="password"
             />
@@ -178,13 +178,13 @@ function LoginPage() {
             </div>
             <div className={LoginPageCSS.checkContainer}>
               <Field
-                className={LoginPageCSS.check + " form-check-input"}
+                className={LoginPageCSS.check}
                 type="checkbox"
                 id="flexCheckDefault"
                 name="rememberMe"
               />
               <label
-                className={LoginPageCSS.labelCheck + " form-check-label"}
+                className={LoginPageCSS.labelCheck}
                 htmlFor="flexCheckDefault"
               >
                 Remember me
@@ -192,7 +192,7 @@ function LoginPage() {
             </div>
             {error && <div className={LoginPageCSS.ErrorMessage}>{error}</div>}
             <button
-              className={LoginPageCSS.loginButton + " btn btn-primary"}
+              className={LoginPageCSS.loginButton}
               type="submit"
             >
               Submit

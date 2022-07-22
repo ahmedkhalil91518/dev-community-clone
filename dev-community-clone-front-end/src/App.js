@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import MainBar from "./components/MainBar/MainBar";
 import Main from "./components/Main/Main";

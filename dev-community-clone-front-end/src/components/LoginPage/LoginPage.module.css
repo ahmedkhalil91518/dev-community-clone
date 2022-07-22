@@ -32,11 +32,6 @@
   font-weight: bolder;
   margin: 5px;
 }
-.input, .loginButton {
-  margin: 10px;
-  width: calc(100% - 20px);
-  height: 50px;
-}
 .check {
   margin-right: 10px;
 }
@@ -58,4 +53,28 @@
 .ErrorMessage {
   display: block;
   color: red;
+}
+.input {
+  margin: 10px;
+  width: calc(100% - 20px);
+  height: 50px;
+  border-radius: 10px;
+  border-color: rgb(182, 180, 180);
+  border-width: 1px;
+}
+.input:focus {
+  outline-color: blue;
+}
+.loginButton {
+  margin: 10px;
+  width: calc(100% - 20px);
+  height: 50px;
+  color: white;
+  background-color: rgb(40, 40, 255);
+  border: none;
+  border-radius: 10px;
+  font-size: large;
+}
+.loginButton:hover {
+  background-color: rgb(0, 0, 253);
 }
