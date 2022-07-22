@@ -38,6 +38,7 @@ viewPostsRouter.get("/", async (request, response, next) => {
 });
 
 viewPostsRouter.get("/post/:id", async (request, response, next) => {
+  let results = {};
   results.data = await Post.findOne({ _id: request.params.id })
     .populate("author")
     .populate("tags");

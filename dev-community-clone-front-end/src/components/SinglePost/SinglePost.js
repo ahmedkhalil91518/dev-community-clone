@@ -14,7 +14,7 @@ export const SinglePost = () => {
 
   useEffect(() => {
     showSinglePost(id).then((fetchedPost) => {
-      setPost(fetchedPost);
+      setPost(fetchedPost.data);
       console.log(fetchedPost);
     });
   }, []);
