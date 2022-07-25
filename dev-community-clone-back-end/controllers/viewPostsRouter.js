@@ -28,9 +28,11 @@ viewPostsRouter.get("/", async (request, response, next) => {
     results.data = await Post.find()
       .populate("author")
       .populate("tags")
+      .sort([['created_at', -1]])
       .limit(limit)
       .skip(startIndex)
       .exec();
+    console.log(results.data);
     response.json(results);
   } catch (e) {
     response.status(500).json({ message: e.message });
@@ -71,6 +73,7 @@ viewPostsRouter.get("/tag/:tag", async (request, response, next) => {
   results.data = await Post.find({ tags: { $elemMatch: { $eq: tag._id } } })
     .populate("author")
     .populate("tags")
+    .sort([['created_at', -1]])
     .limit(limit)
     .skip(startIndex)
     .exec();
