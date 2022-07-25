@@ -7,8 +7,6 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 export const PostBanner = ({ post }) => {
-
-
   return (
     <Card className={PostBannerCSS.card}>
       {post.coverPicture && (
@@ -45,7 +43,12 @@ export const PostBanner = ({ post }) => {
         </Link>
         <div className={PostBannerCSS.tags}>
           {post.tags.map((tag) => {
-            return <Link to={`/tags/${tag.value}`} key={tag.value}> <span className={PostBannerCSS.tag}>#{tag.value}</span></Link>;
+            return (
+              <Link to={`/navigate/${tag.value}`} key={tag.value}>
+                {" "}
+                <span className={PostBannerCSS.tag}>#{tag.value}</span>
+              </Link>
+            );
           })}
         </div>
         <div className={PostBannerCSS.comments}>
