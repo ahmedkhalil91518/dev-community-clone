@@ -1,9 +1,19 @@
-import React from 'react'
-import { CommentSection} from 'react-comments-section'
-import 'react-comments-section/dist/index.css'
-
+import React from "react";
+import { CommentSection } from "react-comments-section";
+import "react-comments-section/dist/index.css";
+import { useSelector } from "react-redux";
+import { addComment } from "services/commentsService";
+import { useParams } from "react-router-dom";
 const CommentsSection = () => {
-  const data =[/* 
+  const user = useSelector((state) => {
+    // @ts-ignore
+    return state.auth;
+  });
+  const params = useParams();
+  const PostId = params.id;
+  console.log(user);
+  const data = [
+    /* 
     {
       userId: '02b',
       comId: '017',
@@ -13,26 +23,32 @@ const CommentsSection = () => {
       avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
       replies: []
     } */
-  ]
-  return <CommentSection
-        currentUser={{
-          currentUserId: '01a',
-          currentUserImg:
-            'https://ui-avatars.com/api/name=Riya&background=random',
-          currentUserProfile:
-            'https://www.linkedin.com/in/riya-negi-8879631a9/',
-          currentUserFullName: 'Riya Negi'
-        }}
-        logIn={{
-          loginLink: 'http://localhost:3001/',
-          signupLink: 'http://localhost:3001/'
-        }}
-        commentData={data}
-        onSubmitAction={(data) => console.log('check submit, ', data)}
-        currentData={(data) => {
-          console.log('current data', data)
-        }}
-      />
-}
+  ];
+  return (
+    <CommentSection
+      currentUser={{
+        currentUserId: user._id,
+        currentUserImg: user.photo,
+        currentUserProfile: `http://localhost:3000/users/${
+          user.email.split("@")[0]
+        }`,
+        currentUserFullName: user.name,
+      }}
+      logIn={{
+        loginLink: "http://localhost:3001/",
+        signupLink: "http://localhost:3001/",
+      }}
+      commentData={data}
+      onSubmitAction={(SubmittedData) => {
+        addComment({ ...SubmittedData, parentPost: PostId }, user.token).then(
+          (x) => console.log(x)
+        );
+      }}
+      currentData={(data) => {
+        console.log("current data", data);
+      }}
+    />
+  );
+};
 
-export default CommentsSection
+export default CommentsSection;
