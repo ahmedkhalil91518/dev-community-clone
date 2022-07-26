@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema(
     ratings: [
       { creator: { type: Schema.Types.ObjectId, ref: "User" }, rating: Number },
     ],
-    comments: [],
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     timestamps: {

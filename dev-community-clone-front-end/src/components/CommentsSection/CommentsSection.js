@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CommentSection } from "react-comments-section";
 import "react-comments-section/dist/index.css";
 import { useSelector } from "react-redux";
 import { addComment } from "services/commentsService";
 import { useParams } from "react-router-dom";
+import { showPostComments } from "../../services/viewCommentsService";
 const CommentsSection = () => {
   const user = useSelector((state) => {
     // @ts-ignore
@@ -24,6 +25,9 @@ const CommentsSection = () => {
       replies: []
     } */
   ];
+  useEffect(() => {
+    showPostComments(PostId).then((data) => console.log(data));
+  }, []);
   return (
     <CommentSection
       currentUser={{
@@ -35,12 +39,12 @@ const CommentsSection = () => {
         currentUserFullName: user.name,
       }}
       logIn={{
-        loginLink: "http://localhost:3001/",
-        signupLink: "http://localhost:3001/",
+        loginLink: "",
+        signupLink: "",
       }}
       commentData={data}
       onSubmitAction={(SubmittedData) => {
-        addComment({ ...SubmittedData, parentPost: PostId }, user.token).then(
+        addComment(SubmittedData, user.token).then(
           (x) => console.log(x)
         );
       }}

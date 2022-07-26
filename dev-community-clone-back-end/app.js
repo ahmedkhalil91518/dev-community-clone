@@ -13,6 +13,7 @@ const userExtractor = require("./middlewares/userExtractor");
 const viewPostsRouter = require("./controllers/viewPostsRouter");
 const tagsRouter = require("./controllers/tagsRouter");
 const commentsRouter = require("./controllers/commentsRouter");
+const viewCommentsRouter = require("./controllers/viewCommentsRouter");
 
 require("dotenv").config();
 const app = express();
@@ -40,6 +41,7 @@ app.use("/api/posts", [tokenExtractor, userExtractor], postsRouter);
 app.use("/api/comments", [tokenExtractor, userExtractor], commentsRouter);
 app.use("/api/viewPosts", viewPostsRouter);
 app.use("/api/tags",tagsRouter)
+app.use("/api/viewComments", viewCommentsRouter);
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
