@@ -36,7 +36,7 @@ export const TagPosts = () => {
           items.map((post) => {
             return <PostBanner key={post.id} post={post} />;
           })}
-        {hasMore && <button onClick={handleClick}>Load More</button>}
+        {hasMore && <button onClick={handleClick} className={TagPostsCSS.button}>Load More</button>}
       </div>
     </div>
   );

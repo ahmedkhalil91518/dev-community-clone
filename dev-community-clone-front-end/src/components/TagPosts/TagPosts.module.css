@@ -7,3 +7,22 @@
 .smallPage {
   margin: auto 5px;
 }
+.button {
+  display: block;
+  margin: 10px auto;
+  border-width: 1px !important;
+  padding: 10px !important;
+  font-size: medium !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  background-color: white;
+  border-radius: 10px;
+  border-color: black;
+  color: black;
+}
+.button:hover {
+  background-color: black !important;
+  color: white;
+  text-decoration: underline !important;
+  text-decoration-color: white !important;
+}

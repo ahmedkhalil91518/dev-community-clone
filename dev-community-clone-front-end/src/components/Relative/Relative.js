@@ -22,7 +22,7 @@ const Relative = () => {
         items.map((post) => {
           return <PostBanner key={post.id} post={post} />;
         })}
-      {hasMore && <button onClick={handleClick}>Load More</button>}
+      {hasMore && <button onClick={handleClick}  className={RelativeCSS.button}>Load More</button>}
     </div>
   );
 };
