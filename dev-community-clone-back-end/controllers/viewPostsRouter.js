@@ -8,7 +8,6 @@ viewPostsRouter.get("/", async (request, response, next) => {
 
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-
   let results = {};
 
   if (endIndex < (await Post.countDocuments().exec())) {
@@ -28,11 +27,11 @@ viewPostsRouter.get("/", async (request, response, next) => {
     results.data = await Post.find()
       .populate("author")
       .populate("tags")
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .limit(limit)
       .skip(startIndex)
       .exec();
-    console.log(results.data);
+    console.log(results.next);
     response.json(results);
   } catch (e) {
     response.status(500).json({ message: e.message });
@@ -53,10 +52,18 @@ viewPostsRouter.get("/tag/:tag", async (request, response, next) => {
 
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-
   let results = {};
 
-  if (endIndex < (await Post.countDocuments().exec())) {
+  const tag = await Tag.findOne({ value: request.params.tag });
+  results.data = await Post.find({ tags: { $elemMatch: { $eq: tag._id } } })
+    .populate("author")
+    .populate("tags")
+    .sort([["created_at", -1]])
+    .limit(limit)
+    .skip(startIndex)
+    .exec();
+
+  if (endIndex < results.data) {
     results.next = {
       page: page + 1,
       limit: limit,
@@ -69,14 +76,6 @@ viewPostsRouter.get("/tag/:tag", async (request, response, next) => {
       limit: limit,
     };
   }
-  const tag = await Tag.findOne({ value: request.params.tag })
-  results.data = await Post.find({ tags: { $elemMatch: { $eq: tag._id } } })
-    .populate("author")
-    .populate("tags")
-    .sort([['created_at', -1]])
-    .limit(limit)
-    .skip(startIndex)
-    .exec();
   response.send(results);
 });
 

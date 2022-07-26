@@ -8,7 +8,6 @@ import { useMediaQuery } from "react-responsive";
 import { SideNavListBig } from "components/SideNavListBig/SideNavListBig";
 
 export const TagPosts = () => {
-  const [posts, setPosts] = useState([]);
   const params = useParams();
   const tag = params.tag;
 

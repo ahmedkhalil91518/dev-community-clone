@@ -5,7 +5,7 @@ export const useInfiniteLoading = (props) => {
   const [items, setItems] = useState([]);
   const pageToLoad = useRef(0); /* 2 */
   const initialPageLoaded = useRef(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   const loadItems = useCallback(async () => {
     /* 3 */
@@ -14,6 +14,7 @@ export const useInfiniteLoading = (props) => {
       page: pageToLoad.current,
     });
     setHasMore(data.data.next); /* 4 */
+    console.log(data.data.next);
     setItems((prevItems) => [...prevItems, ...data.data.data]);
   }, [pageToLoad, getItems]);
 
