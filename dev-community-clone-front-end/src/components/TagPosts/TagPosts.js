@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useInfiniteLoading } from "hooks/useInfiniteLoading";
 import { PostBanner } from "components/PostBanner/PostBanner";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+import { SideNavListBig } from "components/SideNavListBig/SideNavListBig";
 
 export const TagPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -12,24 +14,31 @@ export const TagPosts = () => {
 
   const { items, hasMore, loadItems } = useInfiniteLoading({
     getItems: ({ page }) => {
-     return axios({
+      return axios({
         method: "GET",
         url: `http://localhost:3001/api/viewPosts/tag/${tag}`,
         params: { limit: 10, page: page },
       });
     },
   });
-const handleClick = () => {
-  loadItems()
-}
-
+  const handleClick = () => {
+    loadItems();
+  };
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
   return (
-    <div>
-      {items &&
-        items.map((post) => {
-          return <PostBanner key={post.id} post={post} />;
-        })}
+    <div
+      className={isDesktopOrLaptop ? TagPostsCSS.page : TagPostsCSS.smallPage}
+    >
+      { isDesktopOrLaptop && <SideNavListBig />}
+      <div>
+        {items &&
+          items.map((post) => {
+            return <PostBanner key={post.id} post={post} />;
+          })}
         {hasMore && <button onClick={handleClick}>Load More</button>}
+      </div>
     </div>
   );
 };

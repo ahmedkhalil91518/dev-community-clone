@@ -34,3 +34,6 @@
 .tags {
   margin: 20px 0;
 }
+.widthCard {
+  min-width: 875px;
+}

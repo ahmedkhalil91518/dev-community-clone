@@ -5,10 +5,20 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 export const PostBanner = ({ post }) => {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
   return (
-    <Card className={PostBannerCSS.card}>
+    <Card
+      className={
+        PostBannerCSS.card +
+        " " +
+        (isDesktopOrLaptop && PostBannerCSS.widthCard)
+      }
+    >
       {post.coverPicture && (
         <CardMedia
           component="img"
