@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { showSinglePost } from "services/viewPostsService";
 import { Slate, Editable, withReact } from "slate-react";
 import { createEditor } from "slate";
+import CommentsSection from "components/CommentsSection/CommentsSection";
 
 export const SinglePost = () => {
   const [post, setPost] = useState(null);
@@ -127,6 +128,7 @@ export const SinglePost = () => {
             </Slate>
           )}
         </div>
+        <CommentsSection />
       </div>
     );
   } else {
