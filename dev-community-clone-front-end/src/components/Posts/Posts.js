@@ -3,7 +3,7 @@ import PostsCSS from "./Posts.module.css";
 import { Outlet } from "react-router-dom";
 import PostsNav from "components/PostsNav/PostsNav";
 import { useMediaQuery } from "react-responsive";
-
+import { SideNavListBig } from "components/SideNavListBig/SideNavListBig";
 function Posts() {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
@@ -12,8 +12,11 @@ function Posts() {
 
   return (
     <div className={isDesktopOrLaptop ? PostsCSS.page : PostsCSS.smallPage}>
-      <PostsNav />
-      <Outlet />
+      {isDesktopOrLaptop && <SideNavListBig />}
+      <div>
+        <PostsNav />
+        <Outlet />
+      </div>
     </div>
   );
 }
